@@ -9,11 +9,15 @@
 /* Begin PBXBuildFile section */
 		7380A45E23560E620094D1C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380A45D23560E620094D1C4 /* AppDelegate.swift */; };
 		7380A46023560E620094D1C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380A45F23560E620094D1C4 /* SceneDelegate.swift */; };
-		7380A46223560E620094D1C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380A46123560E620094D1C4 /* ViewController.swift */; };
 		7380A46523560E620094D1C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380A46323560E620094D1C4 /* Main.storyboard */; };
 		7380A46823560E620094D1C4 /* to_do_list.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7380A46623560E620094D1C4 /* to_do_list.xcdatamodeld */; };
 		7380A46A23560E650094D1C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7380A46923560E650094D1C4 /* Assets.xcassets */; };
 		7380A46D23560E650094D1C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380A46B23560E650094D1C4 /* LaunchScreen.storyboard */; };
+		7434F35036AC162921E222DE /* ExtensionVCToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */; };
+		7434FCCF804067B22DA9EFEC /* EnumStatusTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F2ED833759B45C294EBC /* EnumStatusTask.swift */; };
+		7434FCF52F1CAEEC7545883C /* TableViewCellTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F378FAB88E41B854F29F /* TableViewCellTask.swift */; };
+		7434FE8DF122837BD212721C /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F620B5126AE3FD551F4C /* Checkbox.swift */; };
+		7434FEB2899EC8B881396615 /* ViewControllerToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FC9AC7FA850C40D85DEB /* ViewControllerToDoList.swift */; };
 		DEBCADE963B4C9C9837D77CF /* Pods_to_do_list.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E21CEEB7F903E758B07857F /* Pods_to_do_list.framework */; };
 /* End PBXBuildFile section */
 
@@ -21,12 +25,16 @@
 		7380A45A23560E620094D1C4 /* To do list.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To do list.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7380A45D23560E620094D1C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7380A45F23560E620094D1C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7380A46123560E620094D1C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7380A46423560E620094D1C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7380A46723560E620094D1C4 /* to_do_list.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = to_do_list.xcdatamodel; sourceTree = "<group>"; };
 		7380A46923560E650094D1C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7380A46C23560E650094D1C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7380A46E23560E650094D1C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7434F2ED833759B45C294EBC /* EnumStatusTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumStatusTask.swift; sourceTree = "<group>"; };
+		7434F378FAB88E41B854F29F /* TableViewCellTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellTask.swift; sourceTree = "<group>"; };
+		7434F620B5126AE3FD551F4C /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionVCToDoList.swift; sourceTree = "<group>"; };
+		7434FC9AC7FA850C40D85DEB /* ViewControllerToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerToDoList.swift; sourceTree = "<group>"; };
 		8E21CEEB7F903E758B07857F /* Pods_to_do_list.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_to_do_list.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D097668C4F0E9A4F46A678E1 /* Pods-to-do-list.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-to-do-list.debug.xcconfig"; path = "Target Support Files/Pods-to-do-list/Pods-to-do-list.debug.xcconfig"; sourceTree = "<group>"; };
 		F0359926C0501E366C4066A2 /* Pods-to-do-list.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-to-do-list.release.xcconfig"; path = "Target Support Files/Pods-to-do-list/Pods-to-do-list.release.xcconfig"; sourceTree = "<group>"; };
@@ -50,7 +58,6 @@
 				D097668C4F0E9A4F46A678E1 /* Pods-to-do-list.debug.xcconfig */,
 				F0359926C0501E366C4066A2 /* Pods-to-do-list.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -82,6 +89,8 @@
 				7380A46B23560E650094D1C4 /* LaunchScreen.storyboard */,
 				7380A46E23560E650094D1C4 /* Info.plist */,
 				7380A46623560E620094D1C4 /* to_do_list.xcdatamodeld */,
+				7434FC7F185644FE67548BEF /* UIComponents */,
+				7434F812ADC240D6E3CE553C /* Enums */,
 			);
 			path = "to-do-list";
 			sourceTree = "<group>";
@@ -89,7 +98,7 @@
 		73D3527A23560EEB00E3C0A4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				7380A46123560E620094D1C4 /* ViewController.swift */,
+				7434F555CD448BAF8A06789B /* VCToDoList */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -101,6 +110,40 @@
 				7380A45F23560E620094D1C4 /* SceneDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		7434F555CD448BAF8A06789B /* VCToDoList */ = {
+			isa = PBXGroup;
+			children = (
+				7434FC9AC7FA850C40D85DEB /* ViewControllerToDoList.swift */,
+				7434F7BB431F06D264FDDB54 /* Table */,
+			);
+			path = VCToDoList;
+			sourceTree = "<group>";
+		};
+		7434F7BB431F06D264FDDB54 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				7434F378FAB88E41B854F29F /* TableViewCellTask.swift */,
+				7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */,
+			);
+			path = Table;
+			sourceTree = "<group>";
+		};
+		7434F812ADC240D6E3CE553C /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				7434F2ED833759B45C294EBC /* EnumStatusTask.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		7434FC7F185644FE67548BEF /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				7434F620B5126AE3FD551F4C /* Checkbox.swift */,
+			);
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		EA8CEB2F2CFEFD19BEE3BC2D /* Frameworks */ = {
@@ -208,10 +251,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7380A46223560E620094D1C4 /* ViewController.swift in Sources */,
 				7380A45E23560E620094D1C4 /* AppDelegate.swift in Sources */,
 				7380A46023560E620094D1C4 /* SceneDelegate.swift in Sources */,
 				7380A46823560E620094D1C4 /* to_do_list.xcdatamodeld in Sources */,
+				7434FE8DF122837BD212721C /* Checkbox.swift in Sources */,
+				7434FCCF804067B22DA9EFEC /* EnumStatusTask.swift in Sources */,
+				7434FEB2899EC8B881396615 /* ViewControllerToDoList.swift in Sources */,
+				7434FCF52F1CAEEC7545883C /* TableViewCellTask.swift in Sources */,
+				7434F35036AC162921E222DE /* ExtensionVCToDoList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
