@@ -15,6 +15,7 @@ class TableViewCellTask: UITableViewCell {
     @IBOutlet weak var labelCompletionOnSchedule: UILabel!
     @IBOutlet weak var labelActualCompletionTime: UILabel!
 
+    @IBOutlet weak var buttonCompleteTask: Checkbox!
     @IBAction func buttonCompleteTask_click(_ sender: Any) {
         NSLog("Click")
     }

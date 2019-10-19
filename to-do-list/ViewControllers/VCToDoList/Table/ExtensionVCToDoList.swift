@@ -7,31 +7,38 @@ import UIKit
 
 
 extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
+
+    private var _currentDate: String {
+        get {
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+            let currentTime = formatter.string(from: date)
+
+            return currentTime
+        }
+    }
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return arrayContent.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTask") as! TableViewCellTask
 
+        cell.buttonCompleteTask.isChecked = true
         cell.labelStatusTask.text = EnumStatusTask.normal.rawValue
 
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        let result = formatter.string(from: date)
+        cell.labelNameTask.text = arrayName[indexPath.item]
+        cell.labelPreviewTaskContent.text = arrayContent[indexPath.item]
 
-        cell.labelActualCompletionTime.text = result
-
+        cell.labelCompletionOnSchedule.text = self._currentDate
+        cell.labelActualCompletionTime.text = self._currentDate
 
         return cell
     }
 
-    public func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        fatalError("tableView(_:targetIndexPathForMoveFromRowAt:toProposedIndexPath:) has not been implemented")
-    }
-
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return 160.0
     }
 }
