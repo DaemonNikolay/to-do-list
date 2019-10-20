@@ -22,7 +22,6 @@ class ViewControllerToDoList: UIViewController {
     // MARK: -
     // MARK: Properties
 
-    var indexElementSelected: Int = 0
     var taskStatus: EnumStatusTask = EnumStatusTask.unknown
     var taskId: Int?
 

@@ -5,6 +5,7 @@
 
 import UIKit
 import CoreData
+import PopupDialog
 
 
 extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
@@ -89,11 +90,7 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
             }
 
             if (actualCompletionTime != nil && scheduledCompletionTime != nil && actualCompletionTime! > scheduledCompletionTime!) {
-                let purpleTrans = UIColor.withAlphaComponent(.purple)(0.1)
-
-                cell.backgroundColor = purpleTrans
-
-                print("jpodfjgdf32543")
+                cell.backgroundColor = UIColor.withAlphaComponent(.magenta)(0.3)
             } else {
                 cell.backgroundColor = .clear
             }
@@ -109,8 +106,23 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("jdsf \(indexPath.item)")
-        indexElementSelected = indexPath.item
+        let cell = self.tableViewTaskList.cellForRow(at: indexPath) as! TableViewCellTask
+
+        let title = cell.labelNameTask.text
+        let message = cell.labelPreviewTaskContent.text
+
+        let popup = PopupDialog(title: title, message: message)
+
+        popup.addButton(DefaultButton(title: "Хорошо") {
+        })
+
+        if self.traitCollection.userInterfaceStyle == .dark {
+            popup.view.backgroundColor = .systemGray6
+        } else {
+            popup.view.backgroundColor = .white
+        }
+
+        self.present(popup, animated: true)
     }
 
     private func tasksFilter(tasks: [NSManagedObject]) -> [NSManagedObject] {
