@@ -25,6 +25,9 @@ class ViewControllerToDoList: UIViewController {
     var taskStatus: EnumStatusTask = EnumStatusTask.unknown
     var taskId: Int?
 
+    private var _timer: Timer?
+
+
     // MARK: --
     // MARK: Button actions
 
@@ -123,6 +126,8 @@ class ViewControllerToDoList: UIViewController {
 
         self.tableViewTaskList.dataSource = self;
         self.tableViewTaskList.delegate = self;
+
+        _createTimer()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +154,21 @@ class ViewControllerToDoList: UIViewController {
             self.tableViewTaskList.reloadData()
         }
     }
+
+    private func _createTimer() {
+        if _timer == nil {
+            _timer = Timer.scheduledTimer(timeInterval: 60.0,
+                    target: self,
+                    selector: #selector(_updateTableViewTaskForTimer),
+                    userInfo: nil,
+                    repeats: true)
+        }
+    }
+
+    @objc private func _updateTableViewTaskForTimer() {
+        self.tableViewTaskList.reloadData()
+    }
+
 
 
     // MARK: --

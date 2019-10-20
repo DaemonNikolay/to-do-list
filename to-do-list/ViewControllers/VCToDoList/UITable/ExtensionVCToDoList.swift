@@ -134,11 +134,16 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
             cell.labelCompletionOnSchedule.text = "-"
         }
 
-        if (actualCompletionTime != nil &&
-                scheduledCompletionTime != nil &&
-                actualCompletionTime! > scheduledCompletionTime!) {
+        if scheduledCompletionTime != nil && scheduledCompletionTime! < FormattedTime.currentDateAndTime() {
+            let backgroundMagentaColor = UIColor.withAlphaComponent(.magenta)(0.3)
 
-            cell.backgroundColor = UIColor.withAlphaComponent(.magenta)(0.3)
+            if actualCompletionTime == nil {
+                cell.backgroundColor = backgroundMagentaColor
+            } else if actualCompletionTime! > scheduledCompletionTime! {
+                cell.backgroundColor = backgroundMagentaColor
+            } else {
+                cell.backgroundColor = .clear
+            }
         } else {
             cell.backgroundColor = .clear
         }
