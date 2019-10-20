@@ -23,7 +23,7 @@
                                         <rect key="frame" x="0.0" y="34" width="374" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Название" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7O-jJ-zzh">
                                         <rect key="frame" x="0.0" y="8" width="70" height="18"/>
@@ -52,7 +52,10 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="5mx-Gg-OJ3" id="kUc-Jd-g1m"/>
+                                        </connections>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -69,9 +72,6 @@
                                             <segment title="Важная"/>
                                             <segment title="Очень важная"/>
                                         </segments>
-                                        <connections>
-                                            <action selector="segmentedControlTaskStatus_change:" destination="5mx-Gg-OJ3" eventType="valueChanged" id="pwN-qe-Ua1"/>
-                                        </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Статус задачи" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZQ-Qs-hSy">
                                         <rect key="frame" x="0.0" y="8" width="104" height="18"/>
@@ -159,7 +159,7 @@
                                 <rect key="frame" x="20" y="161" width="374" height="31"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSB-tA-zXw" userLabel="Add new task">
-                                        <rect key="frame" x="172" y="1" width="30" height="28"/>
+                                        <rect key="frame" x="172" y="1" width="30" height="27.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" backgroundImage="plus.square.fill" catalog="system">
                                             <color key="titleColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -169,13 +169,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WK1-ko-MkH">
-                                        <rect key="frame" x="331" y="1" width="35" height="30"/>
+                                        <rect key="frame" x="336" y="0.0" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" backgroundImage="funnel">
                                             <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         </state>
                                         <connections>
-                                            <action selector="buttonFliter_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u4U-vZ-Van"/>
+                                            <action selector="buttonFilter_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u4U-vZ-Van"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -195,14 +195,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="155"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BwY-Li-0wc" userLabel="Complete task" customClass="Checkbox" customModule="To_do_list" customModuleProvider="target">
-                                                    <rect key="frame" x="41" y="55" width="20" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" backgroundImage="checkbox_unchecked"/>
-                                                    <connections>
-                                                        <action selector="buttonCompleteTask_click:" destination="D4N-z0-EIU" eventType="touchUpInside" id="Kcd-3f-znZ"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Очень важная" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHX-dc-BTj" userLabel="Task status">
                                                     <rect key="frame" x="20" y="104" width="62" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -253,14 +245,28 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3X-ey-XuB" userLabel="Edit task">
-                                                    <rect key="frame" x="325" y="30" width="30" height="30"/>
+                                                    <rect key="frame" x="325" y="30" width="30" height="30.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="gear" catalog="system"/>
+                                                    <state key="normal" backgroundImage="gear" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="buttonEditTask_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HxU-ur-EkX"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0TE-fH-eTu" userLabel="Remove task">
                                                     <rect key="frame" x="325" y="98" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="trash.fill" catalog="system"/>
+                                                    <state key="normal" backgroundImage="trash.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="buttonRemoveTask_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2a8-CB-liO"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BwY-Li-0wc" userLabel="Complete task" customClass="Checkbox" customModule="To_do_list" customModuleProvider="target">
+                                                    <rect key="frame" x="36" y="49" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" backgroundImage="checkbox_unchecked"/>
+                                                    <connections>
+                                                        <action selector="buttonCompleteTask_click:" destination="D4N-z0-EIU" eventType="touchUpInside" id="Kcd-3f-znZ"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>

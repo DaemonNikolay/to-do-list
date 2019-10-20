@@ -13,6 +13,7 @@
 		7380A46823560E620094D1C4 /* to_do_list.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7380A46623560E620094D1C4 /* to_do_list.xcdatamodeld */; };
 		7380A46A23560E650094D1C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7380A46923560E650094D1C4 /* Assets.xcassets */; };
 		7380A46D23560E650094D1C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380A46B23560E650094D1C4 /* LaunchScreen.storyboard */; };
+		7434F12E0F04EB032029E409 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F9F30146FAD016F36097 /* DateFormat.swift */; };
 		7434F35036AC162921E222DE /* ExtensionVCToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */; };
 		7434F5A1D61DEB96B60C3A28 /* ViewControllerToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */; };
 		7434F8ABE9FDE14F8FDFC048 /* ViewControllerDetailsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */; };
@@ -40,6 +41,7 @@
 		7434F620B5126AE3FD551F4C /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionVCToDoList.swift; sourceTree = "<group>"; };
 		7434F92D8D2F9B0F68B6B936 /* EntityTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityTask.swift; sourceTree = "<group>"; };
+		7434F9F30146FAD016F36097 /* DateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerDetailsTask.swift; sourceTree = "<group>"; };
 		7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerToDoList.swift; sourceTree = "<group>"; };
 		7434FEB05919BF86B8E75EDA /* CoreDataEntityTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityTask.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				7434FC7F185644FE67548BEF /* UIComponents */,
 				7434F812ADC240D6E3CE553C /* Enums */,
 				7434FCD37E24E3F4303E17C3 /* Database */,
+				7434FFE8148A6C8E5B543845 /* Services */,
 			);
 			path = "to-do-list";
 			sourceTree = "<group>";
@@ -125,7 +128,7 @@
 		7434F555CD448BAF8A06789B /* VCToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				7434F7BB431F06D264FDDB54 /* Table */,
+				7434F7BB431F06D264FDDB54 /* UITable */,
 				7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */,
 			);
 			path = VCToDoList;
@@ -147,13 +150,13 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		7434F7BB431F06D264FDDB54 /* Table */ = {
+		7434F7BB431F06D264FDDB54 /* UITable */ = {
 			isa = PBXGroup;
 			children = (
 				7434F378FAB88E41B854F29F /* TableViewCellTask.swift */,
 				7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */,
 			);
-			path = Table;
+			path = UITable;
 			sourceTree = "<group>";
 		};
 		7434F812ADC240D6E3CE553C /* Enums */ = {
@@ -180,6 +183,14 @@
 				7434F5D04EF1853CB044D93D /* Protocols */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		7434FFE8148A6C8E5B543845 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7434F9F30146FAD016F36097 /* DateFormat.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		EA8CEB2F2CFEFD19BEE3BC2D /* Frameworks */ = {
@@ -317,6 +328,7 @@
 				7434FC6E09DAC1AB58101D37 /* CoreDataEntityTask.swift in Sources */,
 				7434FAE080EFC9117E477FE4 /* EnumCoreDataTaskAttributes.swift in Sources */,
 				7434FAF73786E07753F61475 /* EntityTask.swift in Sources */,
+				7434F12E0F04EB032029E409 /* DateFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,7 +484,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nikulux.to-do-list";
 				PRODUCT_NAME = "To do list";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -492,7 +504,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "nikulux.to-do-list";
 				PRODUCT_NAME = "To do list";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

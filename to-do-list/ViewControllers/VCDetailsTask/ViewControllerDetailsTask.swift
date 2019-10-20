@@ -9,7 +9,10 @@
 import UIKit
 
 
-class ViewControllerDetailsTask: UIViewController {
+class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
+
+    // MARK: -
+    // MARK: Constants
 
     let datePicker = UIDatePicker()
 
@@ -25,37 +28,12 @@ class ViewControllerDetailsTask: UIViewController {
 
 
     // MARK: -
-    // MARK: IBActions
-
-    @IBAction func segmentedControlTaskStatus_change(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:  do {
-            print("0")
-        }
-        case 1: do {
-            print("1")
-        }
-        case 2: do {
-            print("2")
-        }
-        default: print("default")
-        }
-    }
-
-    @IBAction func buttonScheduledCompletionTime_click(_ sender: Any) {
-        print("432432652323456")
-        showDatePicker()
-    }
+    // MARK: Button actions
 
     @IBAction func buttonSave_click(_ sender: Any) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy hh:mm"
+        let dateFormatter = DateFormat.dateFormatter()
 
-        if dateFormatter.date(from: textFieldDatePicker.text!) != nil {
-            print("date is valid")
-            labelErrorDate.isHidden = true
-        } else {
-            print("date is invalid")
+        if dateFormatter.date(from: textFieldDatePicker.text!) == nil {
             labelErrorDate.isHidden = false
 
             return
@@ -63,7 +41,7 @@ class ViewControllerDetailsTask: UIViewController {
 
         let name = textFieldNameTask.text!
         let content = textViewContentTask.text!
-        let status = getSegment(selectedSegmentIndex: segmentedControlTaskStatus.selectedSegmentIndex)
+        let status = _getSegment(selectedSegmentIndex: segmentedControlTaskStatus.selectedSegmentIndex)
         let scheduledCompletionTime = dateFormatter.date(from: textFieldDatePicker.text!)
 
         let coreDataTask = CoreDataEntityTask()
@@ -75,55 +53,22 @@ class ViewControllerDetailsTask: UIViewController {
                 actualCompletionTime: nil,
                 scheduledCompletionTime: scheduledCompletionTime)
 
-        print("fdoigsd \(isSave)")
         if (isSave) {
-
             self.navigationController?.popViewController(animated: true)
-
-//            self.dismiss(animated: true)
         }
     }
 
-    private func getSegment(selectedSegmentIndex: Int) -> EnumStatusTask {
-        switch selectedSegmentIndex {
-
-        case 0: return EnumStatusTask.normal
-        case 1: return EnumStatusTask.significant
-        case 2: return EnumStatusTask.verySignificant
-
-        default: return EnumStatusTask.unknown
-        }
-    }
-
-    func showDatePicker() {
-        datePicker.datePickerMode = .dateAndTime
-
-        let toolbar = UIToolbar();
-        toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
-
-        toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
-
-        textFieldDatePicker.inputAccessoryView = toolbar
-        textFieldDatePicker.inputView = datePicker
-    }
-
-    @objc func donedatePicker() {
-
+    @objc func datePickerButtonDone_click() {
         labelErrorDate.isHidden = true
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy hh:mm"
-        textFieldDatePicker.text = formatter.string(from: datePicker.date)
+        let formatter = DateFormat.dateFormatter()
 
-        print("ewr ", formatter.string(from: datePicker.date))
+        textFieldDatePicker.text = formatter.string(from: datePicker.date)
 
         self.view.endEditing(true)
     }
 
-    @objc func cancelDatePicker() {
+    @objc func datePickerButtonCancel_click() {
         self.view.endEditing(true)
     }
 
@@ -136,17 +81,68 @@ class ViewControllerDetailsTask: UIViewController {
 
         self.title = "Screen"
 
-        stylizationTextViewContentTask()
-        showDatePicker()
+        _stylizationTextViewContentTask()
+        _showDatePicker()
+        _tapGestureRecognizerDismissKeyboard()
     }
 
 
     // MARK: -
+    // MARK: TextView
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if ((range.length + range.location) > textViewContentTask.text.count) {
+            return false
+        }
+
+        let contentLength = textViewContentTask.text.count + text.count - range.length
+
+        return contentLength <= 300
+    }
+
+    // MARK: -
     // MARK: Services
 
-    private func stylizationTextViewContentTask() {
+    private func _stylizationTextViewContentTask() {
         textViewContentTask.layer.borderWidth = 1
         textViewContentTask.layer.cornerRadius = 5
         textViewContentTask.layer.borderColor = UIColor.lightGray.cgColor
+    }
+
+    private func _getSegment(selectedSegmentIndex: Int) -> EnumStatusTask {
+        switch selectedSegmentIndex {
+
+        case 0: return EnumStatusTask.normal
+        case 1: return EnumStatusTask.significant
+        case 2: return EnumStatusTask.verySignificant
+
+        default: return EnumStatusTask.unknown
+        }
+    }
+
+    private func _showDatePicker() {
+        datePicker.datePickerMode = .dateAndTime
+
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(datePickerButtonDone_click));
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(datePickerButtonCancel_click));
+
+        toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
+
+        textFieldDatePicker.inputAccessoryView = toolbar
+        textFieldDatePicker.inputView = datePicker
+    }
+
+    private func _tapGestureRecognizerDismissKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                action: #selector(ViewControllerDetailsTask._dismissKeyboard))
+
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc private func _dismissKeyboard() {
+        view.endEditing(true)
     }
 }
