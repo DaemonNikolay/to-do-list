@@ -82,18 +82,14 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
                 cell.labelCompletedActualCompletionTime.isHidden = true
             }
 
-
-            print("kpofdg \(scheduledCompletionTime == nil)")
-
             if (scheduledCompletionTime != nil) {
                 cell.labelCompletionOnSchedule.text = formatter.string(from: scheduledCompletionTime!)
             } else {
                 cell.labelCompletionOnSchedule.text = "-"
             }
         } catch {
-            print("Failed fetch data")
+            fatalError()
         }
-
 
         return cell
     }

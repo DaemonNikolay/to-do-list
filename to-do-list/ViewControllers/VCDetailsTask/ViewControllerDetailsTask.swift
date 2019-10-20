@@ -31,14 +31,26 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
 
     // MARK: -
     // MARK: Button actions
+    @IBAction func textFieldName_change(_ sender: UITextField) {
+        if _isValidContentTextFieldName() {
+            self.labelErrorDate.isHidden = true
+        } else {
+            self.labelErrorDate.isHidden = false
+        }
+    }
 
     @IBAction func buttonSave_click(_ sender: Any) {
-        let dateFormatter = FormattedTime.dateFormatter()
+        _dismissKeyboard()
 
         let name = textFieldNameTask.text!
+        if name.isEmpty {
+            self.labelErrorDate.isHidden = false
+            return
+        }
+
         let content = textViewContentTask.text!
         let status = _getSegment(selectedSegmentIndex: segmentedControlTaskStatus.selectedSegmentIndex)
-        let scheduledCompletionTime = dateFormatter.date(from: textFieldDatePicker.text!)
+        let scheduledCompletionTime = FormattedTime.dateFormatter().date(from: textFieldDatePicker.text!)
 
         let coreDataTask = CoreDataEntityTask()
         var isSave = false
@@ -69,15 +81,12 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
             isSave = isChangeName && isChangeContent && isChangeStatus && isChangeScheduledCompletionTime
         }
 
-
         if (isSave) {
             self.navigationController?.popViewController(animated: true)
         }
     }
 
     @objc func datePickerButtonDone_click() {
-        labelErrorDate.isHidden = true
-
         let formatter = FormattedTime.dateFormatter()
         textFieldDatePicker.text = formatter.string(from: datePicker.date)
 
@@ -201,5 +210,11 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
 
     @objc private func _dismissKeyboard() {
         view.endEditing(true)
+    }
+
+    private func _isValidContentTextFieldName() -> Bool {
+        let lengthName = self.textFieldNameTask.text?.count
+
+        return lengthName! > 0
     }
 }
