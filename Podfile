@@ -4,7 +4,7 @@
 target 'to-do-list' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
-  # Pods for to-do-list
+  
+  pod 'PopupDialog', '~> 1.1'
 
 end

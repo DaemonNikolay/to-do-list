@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,10 +14,11 @@
 		7380A46A23560E650094D1C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7380A46923560E650094D1C4 /* Assets.xcassets */; };
 		7380A46D23560E650094D1C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380A46B23560E650094D1C4 /* LaunchScreen.storyboard */; };
 		7434F35036AC162921E222DE /* ExtensionVCToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */; };
+		7434F5A1D61DEB96B60C3A28 /* ViewControllerToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */; };
+		7434F8ABE9FDE14F8FDFC048 /* ViewControllerDetailsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */; };
 		7434FCCF804067B22DA9EFEC /* EnumStatusTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F2ED833759B45C294EBC /* EnumStatusTask.swift */; };
 		7434FCF52F1CAEEC7545883C /* TableViewCellTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F378FAB88E41B854F29F /* TableViewCellTask.swift */; };
 		7434FE8DF122837BD212721C /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F620B5126AE3FD551F4C /* Checkbox.swift */; };
-		7434FEB2899EC8B881396615 /* ViewControllerToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FC9AC7FA850C40D85DEB /* ViewControllerToDoList.swift */; };
 		DEBCADE963B4C9C9837D77CF /* Pods_to_do_list.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E21CEEB7F903E758B07857F /* Pods_to_do_list.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +35,8 @@
 		7434F378FAB88E41B854F29F /* TableViewCellTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellTask.swift; sourceTree = "<group>"; };
 		7434F620B5126AE3FD551F4C /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionVCToDoList.swift; sourceTree = "<group>"; };
-		7434FC9AC7FA850C40D85DEB /* ViewControllerToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerToDoList.swift; sourceTree = "<group>"; };
+		7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerDetailsTask.swift; sourceTree = "<group>"; };
+		7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerToDoList.swift; sourceTree = "<group>"; };
 		8E21CEEB7F903E758B07857F /* Pods_to_do_list.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_to_do_list.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D097668C4F0E9A4F46A678E1 /* Pods-to-do-list.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-to-do-list.debug.xcconfig"; path = "Target Support Files/Pods-to-do-list/Pods-to-do-list.debug.xcconfig"; sourceTree = "<group>"; };
 		F0359926C0501E366C4066A2 /* Pods-to-do-list.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-to-do-list.release.xcconfig"; path = "Target Support Files/Pods-to-do-list/Pods-to-do-list.release.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				7380A46623560E620094D1C4 /* to_do_list.xcdatamodeld */,
 				7434FC7F185644FE67548BEF /* UIComponents */,
 				7434F812ADC240D6E3CE553C /* Enums */,
+				7434FCD37E24E3F4303E17C3 /* Database */,
 			);
 			path = "to-do-list";
 			sourceTree = "<group>";
@@ -99,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				7434F555CD448BAF8A06789B /* VCToDoList */,
+				7434F5AA0E29CBD2A4A8821C /* VCDetailsTask */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -115,10 +119,18 @@
 		7434F555CD448BAF8A06789B /* VCToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				7434FC9AC7FA850C40D85DEB /* ViewControllerToDoList.swift */,
 				7434F7BB431F06D264FDDB54 /* Table */,
+				7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */,
 			);
 			path = VCToDoList;
+			sourceTree = "<group>";
+		};
+		7434F5AA0E29CBD2A4A8821C /* VCDetailsTask */ = {
+			isa = PBXGroup;
+			children = (
+				7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */,
+			);
+			path = VCDetailsTask;
 			sourceTree = "<group>";
 		};
 		7434F7BB431F06D264FDDB54 /* Table */ = {
@@ -146,6 +158,13 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
+		7434FCD37E24E3F4303E17C3 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		EA8CEB2F2CFEFD19BEE3BC2D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +184,7 @@
 				7380A45623560E620094D1C4 /* Sources */,
 				7380A45723560E620094D1C4 /* Frameworks */,
 				7380A45823560E620094D1C4 /* Resources */,
+				975217542D3E39B2CF3968F8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -244,6 +264,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		975217542D3E39B2CF3968F8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-to-do-list/Pods-to-do-list-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-to-do-list/Pods-to-do-list-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-to-do-list/Pods-to-do-list-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -256,9 +293,10 @@
 				7380A46823560E620094D1C4 /* to_do_list.xcdatamodeld in Sources */,
 				7434FE8DF122837BD212721C /* Checkbox.swift in Sources */,
 				7434FCCF804067B22DA9EFEC /* EnumStatusTask.swift in Sources */,
-				7434FEB2899EC8B881396615 /* ViewControllerToDoList.swift in Sources */,
 				7434FCF52F1CAEEC7545883C /* TableViewCellTask.swift in Sources */,
 				7434F35036AC162921E222DE /* ExtensionVCToDoList.swift in Sources */,
+				7434F5A1D61DEB96B60C3A28 /* ViewControllerToDoList.swift in Sources */,
+				7434F8ABE9FDE14F8FDFC048 /* ViewControllerDetailsTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import PopupDialog
 
 
 class ViewControllerToDoList: UIViewController {
@@ -56,5 +57,27 @@ class ViewControllerToDoList: UIViewController {
 
         self.tableViewTaskList.dataSource = self;
         self.tableViewTaskList.delegate = self;
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        print("pfdjpgjdsfpger")
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        if segue.destination is ViewControllerDetailsTask {
+            let vc = segue.destination as? ViewControllerDetailsTask
+//            vc?.username = "Arthur Dent"
+        }
+    }
+
+    @IBAction func buttonNewTask_click(_ sender: Any) {
+        print("gopr90439043")
+        self.performSegue(withIdentifier: "detailsTask", sender: self)
+    }
+
+    @IBAction func buttonFliter_click(_ sender: Any) {
+        print("jgfiodjhghjodf")
     }
 }
