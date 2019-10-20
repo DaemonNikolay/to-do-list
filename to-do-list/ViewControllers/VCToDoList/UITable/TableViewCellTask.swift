@@ -15,7 +15,7 @@ class TableViewCellTask: UITableViewCell {
     @IBOutlet weak var labelCompletionOnSchedule: UILabel!
     @IBOutlet weak var labelActualCompletionTime: UILabel!
     @IBOutlet weak var labelCompletedActualCompletionTime: UILabel!
-    
+
     @IBOutlet weak var buttonTaskComplete: Checkbox!
     @IBOutlet weak var buttonTaskEdit: UIButton!
     @IBOutlet weak var buttonTaskRemove: UIButton!
