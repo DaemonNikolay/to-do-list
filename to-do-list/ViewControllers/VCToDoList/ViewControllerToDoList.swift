@@ -22,7 +22,49 @@ class ViewControllerToDoList: UIViewController {
     // MARK: -
     // MARK: Properties
 
-    var tasks = [NSManagedObject]()
+//    var tasks = [NSManagedObject]()
+
+    var indexElementSelected: Int = 0
+
+
+    // MARK: -
+    // MARK: Button actions
+
+    @IBAction func buttonCompleteTask_click(_ sender: Any) {
+        NSLog("Click")
+    }
+
+    @IBAction func buttonEditTask_click(_ sender: UIButton) {
+        print("43434343 \(sender.tag)")
+    }
+
+    @IBAction func buttonRemoveTask_click(_ sender: UIButton) {
+        let alert = UIAlertController(
+                title: "Удаление",
+                message: "Действительно хотите удалить? \nДействие не обратимо",
+                preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: { action in
+            let coreDataTask = CoreDataEntityTask()
+            let isRemove = coreDataTask.remove(index: sender.tag)
+
+            if isRemove {
+                self.tableViewTaskList.reloadData()
+            }
+        }))
+
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    @IBAction func buttonNewTask_click(_ sender: Any) {
+        self.performSegue(withIdentifier: "detailsTask", sender: self)
+    }
+
+    @IBAction func buttonFilter_click(_ sender: Any) {
+        print("jgfiodjhghjodf")
+    }
 
 
     // MARK: -
@@ -46,22 +88,5 @@ class ViewControllerToDoList: UIViewController {
             let vc = segue.destination as? ViewControllerDetailsTask
 //            vc?.username = "Arthur Dent"
         }
-    }
-
-    @IBAction func buttonEditTask_click(_ sender: Any) {
-        print("43434343")
-    }
-
-
-    @IBAction func buttonRemoveTask_click(_ sender: Any) {
-        print("hgfdhdftr")
-    }
-
-    @IBAction func buttonNewTask_click(_ sender: Any) {
-        self.performSegue(withIdentifier: "detailsTask", sender: self)
-    }
-
-    @IBAction func buttonFilter_click(_ sender: Any) {
-        print("jgfiodjhghjodf")
     }
 }

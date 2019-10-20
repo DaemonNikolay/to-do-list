@@ -17,6 +17,18 @@ class CoreDataEntityTask: EntityTask {
 
     private let _entityName = "Task"
 
+    // MARK: -
+    // MARK: Properties
+
+    private var _requestCoreData: NSFetchRequest<NSFetchRequestResult> {
+        get {
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: _entityName)
+            request.returnsObjectsAsFaults = false
+
+            return request
+        }
+    }
+
 
     // MARK: -
     // MARK: Public methods
@@ -97,6 +109,18 @@ class CoreDataEntityTask: EntityTask {
         }
     }
 
+    func remove(index: Int) -> Bool {
+        do {
+            let fetchResult = try _context.fetch(_requestCoreData)
+            _context.delete(fetchResult[index] as! NSManagedObject)
+            try _context.save()
+
+            return true
+        } catch {
+            return false
+        }
+    }
+
 
     // MARK: -
     // MARK: Private methods
@@ -106,11 +130,8 @@ class CoreDataEntityTask: EntityTask {
     }
 
     private func _getElementCoreData(index: Int, taskAttribute: EnumCoreDataTaskAttributes) -> Any? {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: _entityName)
-        request.returnsObjectsAsFaults = false
-
         do {
-            let fetchResult = try _context.fetch(request)
+            let fetchResult = try _context.fetch(_requestCoreData)
             let task = fetchResult[index] as! NSManagedObject
 
             return task.value(forKey: taskAttribute.rawValue) as Any

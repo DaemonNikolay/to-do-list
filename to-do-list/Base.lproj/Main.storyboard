@@ -249,7 +249,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" backgroundImage="gear" catalog="system"/>
                                                     <connections>
-                                                        <action selector="buttonEditTask_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HxU-ur-EkX"/>
+                                                        <action selector="buttonEditTask_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PS4-bi-daU"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0TE-fH-eTu" userLabel="Remove task">
@@ -257,7 +257,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" backgroundImage="trash.fill" catalog="system"/>
                                                     <connections>
-                                                        <action selector="buttonRemoveTask_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2a8-CB-liO"/>
+                                                        <action selector="buttonRemoveTask_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="COY-hI-Zj9"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BwY-Li-0wc" userLabel="Complete task" customClass="Checkbox" customModule="To_do_list" customModuleProvider="target">
@@ -265,13 +265,15 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" backgroundImage="checkbox_unchecked"/>
                                                     <connections>
-                                                        <action selector="buttonCompleteTask_click:" destination="D4N-z0-EIU" eventType="touchUpInside" id="Kcd-3f-znZ"/>
+                                                        <action selector="buttonCompleteTask_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hz9-3X-gRj"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="buttonCompleteTask" destination="BwY-Li-0wc" id="Ddr-io-Xpn"/>
+                                            <outlet property="buttonTaskComplete" destination="BwY-Li-0wc" id="Ddr-io-Xpn"/>
+                                            <outlet property="buttonTaskEdit" destination="j3X-ey-XuB" id="bWf-GE-LaL"/>
+                                            <outlet property="buttonTaskRemove" destination="0TE-fH-eTu" id="XdF-se-6QH"/>
                                             <outlet property="labelActualCompletionTime" destination="uAR-PO-IwE" id="Qos-fk-3TK"/>
                                             <outlet property="labelCompletionOnSchedule" destination="fIk-de-F4e" id="zXl-Ju-m1w"/>
                                             <outlet property="labelNameTask" destination="tA4-Ub-YzB" id="g9n-Lj-ca4"/>

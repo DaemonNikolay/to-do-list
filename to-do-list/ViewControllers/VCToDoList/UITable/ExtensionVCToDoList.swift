@@ -46,12 +46,17 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
 
         do {
             let fetchResult = try context.fetch(request)
-            let task = fetchResult[indexPath.item] as! NSManagedObject
+            let index = indexPath.item
+            let task = fetchResult[index] as! NSManagedObject
 
-            cell.buttonCompleteTask.isChecked = task.value(forKey: "isComplete") as! Bool
+            cell.buttonTaskComplete.isChecked = task.value(forKey: "isComplete") as! Bool
             cell.labelStatusTask.text = (task.value(forKey: "status") as! String)
             cell.labelNameTask.text = (task.value(forKey: "name") as! String)
             cell.labelPreviewTaskContent.text = (task.value(forKey: "content") as! String)
+
+            cell.buttonTaskComplete.tag = index
+            cell.buttonTaskEdit.tag = index
+            cell.buttonTaskRemove.tag = index
 
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
@@ -84,4 +89,11 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160.0
     }
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("jdsf \(indexPath.item)")
+        indexElementSelected = indexPath.item
+    }
+
+
 }
