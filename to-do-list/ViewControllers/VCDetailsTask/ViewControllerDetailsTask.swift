@@ -13,13 +13,14 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
 
     var taskId: Int?
 
-    // MARK: -
+    // MARK: --
     // MARK: Constants
 
     let datePicker = UIDatePicker()
+    static let maxCharactersCount = 300
 
 
-    // MARK: -
+    // MARK: --
     // MARK: IBOutlets
 
     @IBOutlet weak var textFieldNameTask: UITextField!
@@ -29,8 +30,9 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
     @IBOutlet weak var labelErrorDate: UILabel!
 
 
-    // MARK: -
+    // MARK: --
     // MARK: Button actions
+
     @IBAction func textFieldName_change(_ sender: UITextField) {
         if _isValidContentTextFieldName() {
             self.labelErrorDate.isHidden = true
@@ -53,6 +55,72 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
         let scheduledCompletionTime = FormattedTime.dateFormatter().date(from: textFieldDatePicker.text!)
 
         let coreDataTask = CoreDataEntityTask()
+        let isSave = _saveTask(
+                coreDataTask: coreDataTask,
+                name: name,
+                content: content,
+                status: status,
+                scheduledCompletionTime: scheduledCompletionTime)
+
+        if (isSave) {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+
+
+    // MARK: ---
+    // MARK: Date picker
+
+    @objc func datePickerButtonDone_click() {
+        let formatter = FormattedTime.dateFormatter()
+        textFieldDatePicker.text = formatter.string(from: datePicker.date)
+
+        self.view.endEditing(true)
+    }
+
+    @objc func datePickerButtonCancel_click() {
+        self.view.endEditing(true)
+    }
+
+
+    // MARK: --
+    // MARK: Life cycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        _initTitle()
+        _stylizationTextViewContentTask()
+        _showDatePicker()
+        _tapGestureRecognizerDismissKeyboard()
+        _initFields()
+    }
+
+
+    // MARK: --
+    // MARK: TextView
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if ((range.length + range.location) > textViewContentTask.text.count) {
+            return false
+        }
+
+        let contentLength = textViewContentTask.text.count + text.count - range.length
+
+        return contentLength <= ViewControllerDetailsTask.maxCharactersCount
+    }
+
+
+    // MARK: --
+    // MARK: Methods
+
+    private func _saveTask(
+            coreDataTask: CoreDataEntityTask,
+            name: String,
+            content: String,
+            status: EnumStatusTask,
+            scheduledCompletionTime: Date?) -> Bool {
+
         var isSave = false
 
         if taskId == nil {
@@ -81,51 +149,36 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
             isSave = isChangeName && isChangeContent && isChangeStatus && isChangeScheduledCompletionTime
         }
 
-        if (isSave) {
-            self.navigationController?.popViewController(animated: true)
+        return isSave
+    }
+
+
+    // MARK: ---
+    // MARK: Getters
+
+    private func _getSegment(selectedSegmentIndex: Int) -> EnumStatusTask {
+        switch selectedSegmentIndex {
+
+        case 0: return EnumStatusTask.normal
+        case 1: return EnumStatusTask.significant
+        case 2: return EnumStatusTask.verySignificant
+
+        default: return EnumStatusTask.unknown
         }
     }
 
-    @objc func datePickerButtonDone_click() {
-        let formatter = FormattedTime.dateFormatter()
-        textFieldDatePicker.text = formatter.string(from: datePicker.date)
 
-        self.view.endEditing(true)
-    }
+    // MARK: ---
+    // MARK: Validation methods
 
-    @objc func datePickerButtonCancel_click() {
-        self.view.endEditing(true)
-    }
+    private func _isValidContentTextFieldName() -> Bool {
+        let lengthName = self.textFieldNameTask.text?.count
 
-
-    // MARK: -
-    // MARK: Life cycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        _initTitle()
-        _stylizationTextViewContentTask()
-        _showDatePicker()
-        _tapGestureRecognizerDismissKeyboard()
-        _initFields()
+        return lengthName! > 0
     }
 
 
-    // MARK: -
-    // MARK: TextView
-
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if ((range.length + range.location) > textViewContentTask.text.count) {
-            return false
-        }
-
-        let contentLength = textViewContentTask.text.count + text.count - range.length
-
-        return contentLength <= 300
-    }
-
-    // MARK: -
+    // MARK: --
     // MARK: Services
 
     private func _initFields() {
@@ -136,9 +189,6 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
         let coreDataTask = CoreDataEntityTask()
 
         let id = taskId!
-
-        print("jgpdfj \(id)")
-
         textFieldNameTask.text = coreDataTask.getName(taskId: id)
         textViewContentTask.text = coreDataTask.getContent(taskId: id)
 
@@ -175,25 +225,30 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
         textViewContentTask.layer.borderColor = UIColor.lightGray.cgColor
     }
 
-    private func _getSegment(selectedSegmentIndex: Int) -> EnumStatusTask {
-        switch selectedSegmentIndex {
-
-        case 0: return EnumStatusTask.normal
-        case 1: return EnumStatusTask.significant
-        case 2: return EnumStatusTask.verySignificant
-
-        default: return EnumStatusTask.unknown
-        }
-    }
-
     private func _showDatePicker() {
         datePicker.datePickerMode = .dateAndTime
 
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(datePickerButtonDone_click));
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(datePickerButtonCancel_click));
+
+        let doneButton = UIBarButtonItem(
+                title: "Готово",
+                style: .plain,
+                target: self,
+                action: #selector(datePickerButtonDone_click)
+        );
+
+        let spaceButton = UIBarButtonItem(
+                barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace,
+                target: nil,
+                action: nil)
+
+        let cancelButton = UIBarButtonItem(
+                title: "Назад",
+                style: .plain,
+                target: self,
+                action: #selector(datePickerButtonCancel_click)
+        );
 
         toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
 
@@ -212,9 +267,7 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
         view.endEditing(true)
     }
 
-    private func _isValidContentTextFieldName() -> Bool {
-        let lengthName = self.textFieldNameTask.text?.count
 
-        return lengthName! > 0
-    }
+    // MARK: --
+    // MARK: Other
 }

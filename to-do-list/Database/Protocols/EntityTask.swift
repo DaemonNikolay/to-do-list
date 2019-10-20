@@ -13,6 +13,4 @@ protocol EntityTask {
     func getIsComplete(taskId: Int) -> Bool
     func getActualCompletionTime(taskId: Int) -> Date?
     func getScheduledCompletionTime(taskId: Int) -> Date?
-
-
 }

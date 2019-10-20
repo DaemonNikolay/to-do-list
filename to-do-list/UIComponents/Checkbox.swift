@@ -7,8 +7,16 @@ import UIKit
 
 
 class Checkbox: UIButton {
+
+    // MARK: --
+    // MARK: Constants
+
     let checkedImage = UIImage(named: "checkbox_checked")! as UIImage
     let uncheckedImage = UIImage(named: "checkbox_unchecked")! as UIImage
+
+
+    // MARK: --
+    // MARK: Properties
 
     var isChecked: Bool = false {
         didSet {
@@ -20,10 +28,18 @@ class Checkbox: UIButton {
         }
     }
 
+
+    // MARK: --
+    // MARK: Life cycle
+
     override func awakeFromNib() {
         self.addTarget(self, action: #selector(checkbox_click(sender:)), for: UIControl.Event.touchUpInside)
         self.isChecked = false
     }
+
+
+    // MARK: -
+    // MARK: Services
 
     @objc func checkbox_click(sender: UIButton) {
         if sender != self {
@@ -32,4 +48,8 @@ class Checkbox: UIButton {
 
         self.isChecked = !self.isChecked
     }
+
+
+    // MARK: --
+    // MARK: Other
 }

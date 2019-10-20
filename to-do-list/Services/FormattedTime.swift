@@ -8,14 +8,14 @@ import Foundation
 
 class FormattedTime {
 
-    // MARK: -
+    // MARK: --
     // MARK: Properties
 
     static let dateFormat = "dd.MM.yyyy hh:mm"
 
 
-    // MARK: -
-    // MARK: Public methods
+    // MARK: --
+    // MARK: Methods
 
     static func dateFormatter() -> DateFormatter {
         let formatter = DateFormatter()

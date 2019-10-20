@@ -10,16 +10,8 @@ import PopupDialog
 
 extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
 
-    private var _currentDate: String {
-        get {
-            let date = Date()
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
-            let currentTime = formatter.string(from: date)
-
-            return currentTime
-        }
-    }
+    // MARK: --
+    // MARK: Life cycle
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -28,72 +20,38 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
         var countElements = 0
 
         do {
-            let result = try context.fetch(request) as! [NSManagedObject]
+            let tasks = try context.fetch(request) as! [NSManagedObject]
 
             if taskStatus != EnumStatusTask.unknown {
-                countElements = countElementsWithFilter(tasks: result)
+                countElements = CoreDataEntityTask.countElementsWithFilter(tasks: tasks, taskStatus: taskStatus)
             } else {
-                countElements = result.count
+                countElements = tasks.count
             }
         } catch {
-            print("Failed")
+            fatalError()
         }
 
         return countElements
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellTask") as! TableViewCellTask
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cellTask") as! TableViewCellTask
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: CoreDataEntityTask.entityName)
         request.returnsObjectsAsFaults = false
 
         do {
-            var tasks = try context.fetch(request) as! [NSManagedObject]
-            if taskStatus != EnumStatusTask.unknown {
-                tasks = tasksFilter(tasks: tasks)
-            }
+            let coreDataTasks = CoreDataEntityTask()
 
-            let index = indexPath.item
-            let task = tasks[index]
+            let task = try coreDataTasks.getTask(
+                    index: indexPath.item,
+                    context: context,
+                    request: request,
+                    taskStatus: taskStatus)
 
-            cell.buttonTaskComplete.isChecked = task.value(forKey: "isComplete") as! Bool
-            cell.labelStatusTask.text = (task.value(forKey: "status") as! String)
-            cell.labelNameTask.text = (task.value(forKey: "name") as! String)
-            cell.labelPreviewTaskContent.text = (task.value(forKey: "content") as! String)
-
-            cell.buttonTaskComplete.tag = task.value(forKey: "id") as! Int
-            cell.buttonTaskEdit.tag = task.value(forKey: "id") as! Int
-            cell.buttonTaskRemove.tag = task.value(forKey: "id") as! Int
-
-            let formatter = DateFormatter()
-            formatter.dateFormat = FormattedTime.dateFormat
-
-            let actualCompletionTime = task.value(forKey: "actualCompletionTime") as! Date?
-            let scheduledCompletionTime = task.value(forKey: "scheduledCompletionTime") as! Date?
-
-            if (actualCompletionTime != nil) {
-                cell.labelActualCompletionTime.isHidden = false
-                cell.labelCompletedActualCompletionTime.isHidden = false
-                cell.labelActualCompletionTime.text = formatter.string(from: actualCompletionTime!)
-            } else {
-                cell.labelActualCompletionTime.isHidden = true
-                cell.labelCompletedActualCompletionTime.isHidden = true
-            }
-
-            if (scheduledCompletionTime != nil) {
-                cell.labelCompletionOnSchedule.text = formatter.string(from: scheduledCompletionTime!)
-            } else {
-                cell.labelCompletionOnSchedule.text = "-"
-            }
-
-            if (actualCompletionTime != nil && scheduledCompletionTime != nil && actualCompletionTime! > scheduledCompletionTime!) {
-                cell.backgroundColor = UIColor.withAlphaComponent(.magenta)(0.3)
-            } else {
-                cell.backgroundColor = .clear
-            }
+            cell = _fillCell(cell: cell, task: task, coreDataTasks: coreDataTasks)
         } catch {
             fatalError()
         }
@@ -116,40 +74,79 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
         popup.addButton(DefaultButton(title: "Хорошо") {
         })
 
-        if self.traitCollection.userInterfaceStyle == .dark {
-            popup.view.backgroundColor = .systemGray6
-        } else {
-            popup.view.backgroundColor = .white
-        }
+        popup.backgroundColorMode(userInterfaceStyle: self.traitCollection.userInterfaceStyle)
 
         self.present(popup, animated: true)
     }
 
-    private func tasksFilter(tasks: [NSManagedObject]) -> [NSManagedObject] {
-        var tasksFiltration = [NSManagedObject]()
 
-        tasks.forEach({ task in
-            let status = task.value(forKey: EnumCoreDataTaskAttributes.status.rawValue) as! String
+    // MARK: --
+    // MARK: Fill cell
 
-            if status == taskStatus.rawValue {
-                tasksFiltration.append(task)
-            }
-        })
+    private func _fillCell(
+            cell: TableViewCellTask,
+            task: NSManagedObject,
+            coreDataTasks: CoreDataEntityTask
+    ) -> TableViewCellTask {
+        var cell = cell
 
-        return tasksFiltration
+        cell.buttonTaskComplete.isChecked = task.value(forKey: EnumCoreDataTaskAttributes.isComplete.rawValue) as! Bool
+        cell.labelStatusTask.text = (task.value(forKey: EnumCoreDataTaskAttributes.status.rawValue) as! String)
+        cell.labelNameTask.text = (task.value(forKey: EnumCoreDataTaskAttributes.name.rawValue) as! String)
+        cell.labelPreviewTaskContent.text = (task.value(forKey: EnumCoreDataTaskAttributes.content.rawValue) as! String)
+
+        cell = _fillButtonTags(cell: cell, task: task)
+        cell = _fillCellOfTimes(cell: cell, task: task)
+
+        cell.buttonTaskComplete.isChecked = task.value(forKey: EnumCoreDataTaskAttributes.isComplete.rawValue) as! Bool
+
+        return cell
     }
 
-    private func countElementsWithFilter(tasks: [NSManagedObject]) -> Int {
-        var count = 0
+    private func _fillButtonTags(cell: TableViewCellTask, task: NSManagedObject) -> TableViewCellTask {
+        let name = EnumCoreDataTaskAttributes.id.rawValue
+        cell.buttonTaskComplete.tag = task.value(forKey: name) as! Int
+        cell.buttonTaskEdit.tag = task.value(forKey: name) as! Int
+        cell.buttonTaskRemove.tag = task.value(forKey: name) as! Int
 
-        tasks.forEach({ task in
-            let taskStatusElement = task.value(forKey: EnumCoreDataTaskAttributes.status.rawValue) as! String
-            if taskStatusElement == taskStatus.rawValue {
-                count += 1
-            }
-        })
-
-        return count
+        return cell
     }
 
+    private func _fillCellOfTimes(cell: TableViewCellTask, task: NSManagedObject) -> TableViewCellTask {
+        let formatter = DateFormatter()
+        formatter.dateFormat = FormattedTime.dateFormat
+
+        let actualCompletionTime = task.value(forKey: "actualCompletionTime") as! Date?
+        let scheduledCompletionTime = task.value(forKey: "scheduledCompletionTime") as! Date?
+
+        if (actualCompletionTime != nil) {
+            cell.labelActualCompletionTime.isHidden = false
+            cell.labelCompletedActualCompletionTime.isHidden = false
+            cell.labelActualCompletionTime.text = formatter.string(from: actualCompletionTime!)
+        } else {
+            cell.labelActualCompletionTime.isHidden = true
+            cell.labelCompletedActualCompletionTime.isHidden = true
+        }
+
+        if (scheduledCompletionTime != nil) {
+            cell.labelCompletionOnSchedule.text = formatter.string(from: scheduledCompletionTime!)
+        } else {
+            cell.labelCompletionOnSchedule.text = "-"
+        }
+
+        if (actualCompletionTime != nil &&
+                scheduledCompletionTime != nil &&
+                actualCompletionTime! > scheduledCompletionTime!) {
+
+            cell.backgroundColor = UIColor.withAlphaComponent(.magenta)(0.3)
+        } else {
+            cell.backgroundColor = .clear
+        }
+
+        return cell
+    }
+
+
+    // MARK: --
+    // MARK: Other
 }

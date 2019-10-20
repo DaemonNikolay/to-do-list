@@ -9,20 +9,21 @@ import UIKit
 
 class CoreDataEntityTask: EntityTask {
 
-    // MARK: -
-    // MARK: Private constants
+    // MARK: --
+    // MARK: Constants
+
+    static let entityName = "Task"
 
     private let _appDelegate: AppDelegate
     private let _context: NSManagedObjectContext
 
-    private let _entityName = "Task"
 
-    // MARK: -
+    // MARK: --
     // MARK: Properties
 
     private var _requestCoreData: NSFetchRequest<NSFetchRequestResult> {
         get {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: _entityName)
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: CoreDataEntityTask.entityName)
             request.returnsObjectsAsFaults = false
 
             return request
@@ -30,13 +31,19 @@ class CoreDataEntityTask: EntityTask {
     }
 
 
-    // MARK: -
-    // MARK: Public methods
+    // MARK: --
+    // MARK: Methods
+
+    // MARK: ---
+    // MARK: Init
 
     init() {
         _appDelegate = UIApplication.shared.delegate as! AppDelegate
         _context = _appDelegate.persistentContainer.viewContext
     }
+
+    // MARK: ---
+    // MARK: Getters
 
     func getName(taskId: Int) -> String? {
         let result = _getTask(taskId: taskId, attribute: EnumCoreDataTaskAttributes.name) as! String?
@@ -74,6 +81,63 @@ class CoreDataEntityTask: EntityTask {
         return result
     }
 
+    func getTask(index: Int,
+                 context: NSManagedObjectContext,
+                 request: NSFetchRequest<NSFetchRequestResult>,
+                 taskStatus: EnumStatusTask
+    ) throws -> NSManagedObject {
+
+        let tasks = try self.getTasks(context: context, request: request, taskStatus: taskStatus)
+        let task = tasks[index]
+
+        return task
+    }
+
+    func getTasks(
+            context: NSManagedObjectContext,
+            request: NSFetchRequest<NSFetchRequestResult>,
+            taskStatus: EnumStatusTask
+    ) throws -> [NSManagedObject] {
+
+        var tasks = try context.fetch(request) as! [NSManagedObject]
+        if taskStatus != EnumStatusTask.unknown {
+            tasks = CoreDataEntityTask.tasksFilter(tasks: tasks, taskStatus: taskStatus)
+        }
+
+        return tasks
+    }
+
+    private func _getTask(taskId: Int, attribute: EnumCoreDataTaskAttributes) -> Any? {
+        do {
+            let fetchOfTasks = try _context.fetch(_requestCoreData) as! [NSManagedObject]
+            let taskManagedObject: NSManagedObject? = self._getTask(fetchOfTasks: fetchOfTasks, id: taskId)
+            if taskManagedObject == nil {
+                return nil
+            }
+
+            return taskManagedObject?.value(forKey: attribute.rawValue)
+        } catch {
+            return nil
+        }
+    }
+
+    private func _getTask(fetchOfTasks: [NSManagedObject], id: Int) -> NSManagedObject? {
+        var taskManagedObject: NSManagedObject? = nil
+
+        fetchOfTasks.forEach({ task in
+            let taskId = task.value(forKey: EnumCoreDataTaskAttributes.id.rawValue) as! Int
+            if taskId == id {
+                taskManagedObject = task
+                return
+            }
+        })
+
+        return taskManagedObject
+    }
+
+    // MARK: ---
+    // MARK: CRUD (without read)
+
     func save(name: String,
               content: String,
               status: EnumStatusTask,
@@ -85,7 +149,7 @@ class CoreDataEntityTask: EntityTask {
             return false
         }
 
-        let entity = NSEntityDescription.entity(forEntityName: _entityName, in: _context)
+        let entity = NSEntityDescription.entity(forEntityName: CoreDataEntityTask.entityName, in: _context)
         let newTask = NSManagedObject(entity: entity!, insertInto: _context)
 
         let taskAttributes = EnumCoreDataTaskAttributes.self
@@ -106,17 +170,31 @@ class CoreDataEntityTask: EntityTask {
 
             return true
         } catch {
-            print("Failed saving")
+            return false
+        }
+    }
 
+    func edit(id: Int, key: EnumCoreDataTaskAttributes, value: Any?) -> Bool {
+        do {
+            let fetchOfTasks = try _context.fetch(_requestCoreData) as! [NSManagedObject]
+            let taskManagedObject: NSManagedObject? = self._getTask(fetchOfTasks: fetchOfTasks, id: id)
+            if taskManagedObject == nil {
+                return false
+            }
+
+            taskManagedObject?.setValue(value, forKey: key.rawValue)
+            try _context.save()
+
+            return true
+        } catch {
             return false
         }
     }
 
     func remove(id: Int) -> Bool {
         do {
-            let fetchResult = try _context.fetch(_requestCoreData) as! [NSManagedObject]
-            let taskManagedObject: NSManagedObject? = self._getTask(tasksFetchResult: fetchResult, id: id)
-
+            let fetchOfTasks = try _context.fetch(_requestCoreData) as! [NSManagedObject]
+            let taskManagedObject: NSManagedObject? = self._getTask(fetchOfTasks: fetchOfTasks, id: id)
             if taskManagedObject == nil {
                 return false
             }
@@ -130,51 +208,43 @@ class CoreDataEntityTask: EntityTask {
         }
     }
 
-    func edit(id: Int, key: EnumCoreDataTaskAttributes, value: Any?) -> Bool {
-        do {
-            let fetchResult = try _context.fetch(_requestCoreData) as! [NSManagedObject]
-            let taskManagedObject: NSManagedObject? = self._getTask(tasksFetchResult: fetchResult, id: id)
 
-            taskManagedObject?.setValue(value, forKey: key.rawValue)
-            try _context.save()
-
-            return true
-        } catch {
-            return false
-        }
-    }
-
-
-    // MARK: -
-    // MARK: Private methods
+    // MARK: --
+    // MARK: Validation methods
 
     private func _checkTaskAttributes(name: String, content: String) -> Bool {
         return !(name.isEmpty && name.isEmpty)
     }
 
-    private func _getTask(taskId: Int, attribute: EnumCoreDataTaskAttributes) -> Any? {
-        do {
-            let fetchResult = try _context.fetch(_requestCoreData) as! [NSManagedObject]
-            let taskManagedObject: NSManagedObject? = self._getTask(tasksFetchResult: fetchResult, id: taskId)
-            let element = taskManagedObject?.value(forKey: attribute.rawValue)
 
-            return element
-        } catch {
-            return nil
-        }
-    }
+    // MARK: --
+    // MARK: Filter methods
 
-    private func _getTask(tasksFetchResult: [NSManagedObject], id: Int) -> NSManagedObject? {
-        var taskManagedObject: NSManagedObject? = nil
+    static func tasksFilter(tasks: [NSManagedObject], taskStatus: EnumStatusTask) -> [NSManagedObject] {
+        var tasksFiltration = [NSManagedObject]()
 
-        tasksFetchResult.forEach({ element in
-            let taskId = element.value(forKey: EnumCoreDataTaskAttributes.id.rawValue) as! Int
-            if taskId == id {
-                taskManagedObject = element
-                return
+        tasks.forEach({ task in
+            let status = task.value(forKey: EnumCoreDataTaskAttributes.status.rawValue) as! String
+
+            if status == taskStatus.rawValue {
+                tasksFiltration.append(task)
             }
         })
 
-        return taskManagedObject
+        return tasksFiltration
     }
+
+    static func countElementsWithFilter(tasks: [NSManagedObject], taskStatus: EnumStatusTask) -> Int {
+        var count = 0
+
+        tasks.forEach({ task in
+            let taskStatusElement = task.value(forKey: EnumCoreDataTaskAttributes.status.rawValue) as! String
+            if taskStatusElement == taskStatus.rawValue {
+                count += 1
+            }
+        })
+
+        return count
+    }
+
 }

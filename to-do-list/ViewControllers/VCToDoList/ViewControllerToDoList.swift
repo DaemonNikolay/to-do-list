@@ -13,19 +13,19 @@ import PopupDialog
 
 class ViewControllerToDoList: UIViewController {
 
-    // MARK: -
+    // MARK: --
     // MARK: IBOutlet
 
     @IBOutlet weak var tableViewTaskList: UITableView!
 
 
-    // MARK: -
+    // MARK: --
     // MARK: Properties
 
     var taskStatus: EnumStatusTask = EnumStatusTask.unknown
     var taskId: Int?
 
-    // MARK: -
+    // MARK: --
     // MARK: Button actions
 
     @IBAction func buttonCompleteTask_click(_ sender: Checkbox) {
@@ -94,19 +94,19 @@ class ViewControllerToDoList: UIViewController {
         }
 
         let buttonNormal = DefaultButton(title: EnumStatusTask.normal.rawValue) {
-            self.changeTaskStatus(status: .normal)
+            self._changeTaskStatus(status: .normal)
         }
 
         let buttonSignificant = DefaultButton(title: EnumStatusTask.significant.rawValue) {
-            self.changeTaskStatus(status: .significant)
+            self._changeTaskStatus(status: .significant)
         }
 
         let buttonVerySignificant = DefaultButton(title: EnumStatusTask.verySignificant.rawValue) {
-            self.changeTaskStatus(status: .verySignificant)
+            self._changeTaskStatus(status: .verySignificant)
         }
 
         let buttonWithoutFilter = CancelButton(title: "Без фильтра") {
-            self.changeTaskStatus(status: .unknown)
+            self._changeTaskStatus(status: .unknown)
         }
 
         popup.addButtons([buttonNormal, buttonSignificant, buttonVerySignificant, buttonWithoutFilter])
@@ -114,15 +114,8 @@ class ViewControllerToDoList: UIViewController {
         self.present(popup, animated: true, completion: nil)
     }
 
-    private func changeTaskStatus(status: EnumStatusTask) {
-        if self.taskStatus != status {
-            self.taskStatus = status
-            self.tableViewTaskList.reloadData()
-        }
-    }
 
-
-    // MARK: -
+    // MARK: --
     // MARK: Life cycle
 
     override func viewDidLoad() {
@@ -145,4 +138,19 @@ class ViewControllerToDoList: UIViewController {
             vc?.taskId = self.taskId
         }
     }
+
+
+    // MARK: --
+    // MARK: Services
+
+    private func _changeTaskStatus(status: EnumStatusTask) {
+        if self.taskStatus != status {
+            self.taskStatus = status
+            self.tableViewTaskList.reloadData()
+        }
+    }
+
+
+    // MARK: --
+    // MARK: Other
 }

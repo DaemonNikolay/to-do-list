@@ -10,18 +10,33 @@ import UIKit
 
 class CoreDataEntityUniqueId {
 
+    // MARK: --
+    // MARK: Constants
+
     private let entityName: String = "UniqueId"
     private let attributeName: String = "id"
+
+
+    // MARK: --
+    // MARK: Properties
+
+    static var shared: CoreDataEntityUniqueId = {
+        return CoreDataEntityUniqueId()
+    }()
+
+
+    // MARK: --
+    // MARK: Init
 
     private init() {
     }
 
-    static var shared: CoreDataEntityUniqueId = {
-        let instance = CoreDataEntityUniqueId()
 
-        return instance
-    }()
+    // MARK: --
+    // MARK: Methods
 
+    // MARK: ---
+    // MARK: Getters
 
     func getId() -> Int64 {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -47,7 +62,7 @@ class CoreDataEntityUniqueId {
             var id = uniqueId.value(forKey: attributeName) as! Int64
             id += 1
 
-            uniqueId.setValue(id , forKey: attributeName)
+            uniqueId.setValue(id, forKey: attributeName)
 
             try _saveUniqueId(context: context)
 

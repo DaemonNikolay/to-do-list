@@ -16,6 +16,7 @@
 		7434F12E0F04EB032029E409 /* FormattedTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F9F30146FAD016F36097 /* FormattedTime.swift */; };
 		7434F34BD1C4557B675C7ABE /* CoreDataEntityTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F032D057C6FB9D2377CE /* CoreDataEntityTask.swift */; };
 		7434F35036AC162921E222DE /* ExtensionVCToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */; };
+		7434F5593B6A623BF2C9DE66 /* ExtensionPopupDialogCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FBEE18F9E41AED89666C /* ExtensionPopupDialogCustomization.swift */; };
 		7434F5A1D61DEB96B60C3A28 /* ViewControllerToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */; };
 		7434F8547E91EAB62B866ADB /* CoreDataEntityUniqueId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FC6CCF4EEDD9EF159388 /* CoreDataEntityUniqueId.swift */; };
 		7434F8ABE9FDE14F8FDFC048 /* ViewControllerDetailsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */; };
@@ -44,6 +45,7 @@
 		7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionVCToDoList.swift; sourceTree = "<group>"; };
 		7434F92D8D2F9B0F68B6B936 /* EntityTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityTask.swift; sourceTree = "<group>"; };
 		7434F9F30146FAD016F36097 /* FormattedTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormattedTime.swift; sourceTree = "<group>"; };
+		7434FBEE18F9E41AED89666C /* ExtensionPopupDialogCustomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionPopupDialogCustomization.swift; sourceTree = "<group>"; };
 		7434FC6CCF4EEDD9EF159388 /* CoreDataEntityUniqueId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityUniqueId.swift; sourceTree = "<group>"; };
 		7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerDetailsTask.swift; sourceTree = "<group>"; };
 		7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerToDoList.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				7434F620B5126AE3FD551F4C /* Checkbox.swift */,
+				7434FBEE18F9E41AED89666C /* ExtensionPopupDialogCustomization.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				7434F12E0F04EB032029E409 /* FormattedTime.swift in Sources */,
 				7434F34BD1C4557B675C7ABE /* CoreDataEntityTask.swift in Sources */,
 				7434F8547E91EAB62B866ADB /* CoreDataEntityUniqueId.swift in Sources */,
+				7434F5593B6A623BF2C9DE66 /* ExtensionPopupDialogCustomization.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

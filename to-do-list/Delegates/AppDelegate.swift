@@ -18,12 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        let popupDialogView = PopupDialogDefaultView.appearance()
-
-        popupDialogView.titleColor = .orange
-        popupDialogView.messageColor = .brown
-
-        popupDialogView.layer.cornerRadius = 5
+        self._settingPopupDialogView()
 
         return true
     }
@@ -87,5 +82,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+
+    private func _settingPopupDialogView() {
+        let popupDialogView = PopupDialogDefaultView.appearance()
+
+        popupDialogView.titleColor = .orange
+        popupDialogView.messageColor = .brown
+
+        popupDialogView.layer.cornerRadius = 5
+    }
 }
 
