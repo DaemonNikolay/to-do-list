@@ -45,7 +45,7 @@ class ViewControllerToDoList: UIViewController {
 
         alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: { action in
             let coreDataTask = CoreDataEntityTask()
-            let isRemove = coreDataTask.remove(index: sender.tag)
+            let isRemove = coreDataTask.remove(id: sender.tag)
 
             if isRemove {
                 self.tableViewTaskList.reloadData()
@@ -71,24 +71,31 @@ class ViewControllerToDoList: UIViewController {
         }
 
         let buttonNormal = DefaultButton(title: EnumStatusTask.normal.rawValue) {
-            self.taskStatus = .normal
+            self.changeTaskStatus(status: .normal)
         }
 
         let buttonSignificant = DefaultButton(title: EnumStatusTask.significant.rawValue) {
-            self.taskStatus = .significant
+            self.changeTaskStatus(status: .significant)
         }
 
         let buttonVerySignificant = DefaultButton(title: EnumStatusTask.verySignificant.rawValue) {
-            self.taskStatus = .verySignificant
+            self.changeTaskStatus(status: .verySignificant)
         }
 
         let buttonWithoutFilter = CancelButton(title: "Без фильтра") {
-            self.taskStatus = .unknown
+            self.changeTaskStatus(status: .unknown)
         }
 
         popup.addButtons([buttonNormal, buttonSignificant, buttonVerySignificant, buttonWithoutFilter])
 
         self.present(popup, animated: true, completion: nil)
+    }
+
+    private func changeTaskStatus(status: EnumStatusTask) {
+        if self.taskStatus != status {
+            self.taskStatus = status
+            self.tableViewTaskList.reloadData()
+        }
     }
 
 

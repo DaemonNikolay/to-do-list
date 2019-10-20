@@ -27,8 +27,13 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
         var countElements = 0
 
         do {
-            let result = try context.fetch(request)
-            countElements = (result as! [NSManagedObject]).count
+            let result = try context.fetch(request) as! [NSManagedObject]
+
+            if taskStatus != EnumStatusTask.unknown {
+                countElements = countElementsWithFilter(tasks: result)
+            } else {
+                countElements = result.count
+            }
         } catch {
             print("Failed")
         }
@@ -45,21 +50,25 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
         request.returnsObjectsAsFaults = false
 
         do {
-            let fetchResult = try context.fetch(request)
+            var tasks = try context.fetch(request) as! [NSManagedObject]
+            if taskStatus != EnumStatusTask.unknown {
+                tasks = tasksFilter(tasks: tasks)
+            }
+
             let index = indexPath.item
-            let task = fetchResult[index] as! NSManagedObject
+            let task = tasks[index]
 
             cell.buttonTaskComplete.isChecked = task.value(forKey: "isComplete") as! Bool
             cell.labelStatusTask.text = (task.value(forKey: "status") as! String)
             cell.labelNameTask.text = (task.value(forKey: "name") as! String)
             cell.labelPreviewTaskContent.text = (task.value(forKey: "content") as! String)
 
-            cell.buttonTaskComplete.tag = index
-            cell.buttonTaskEdit.tag = index
-            cell.buttonTaskRemove.tag = index
+            cell.buttonTaskComplete.tag = task.value(forKey: "id") as! Int
+            cell.buttonTaskEdit.tag = task.value(forKey: "id") as! Int
+            cell.buttonTaskRemove.tag = task.value(forKey: "id") as! Int
 
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
+            formatter.dateFormat = DateFormat.dateFormat
 
             let actualCompletionTime = task.value(forKey: "actualCompletionTime") as! Date?
             let scheduledCompletionTime = task.value(forKey: "scheduledCompletionTime") as! Date?
@@ -95,5 +104,31 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
         indexElementSelected = indexPath.item
     }
 
+    private func tasksFilter(tasks: [NSManagedObject]) -> [NSManagedObject] {
+        var tasksFiltration = [NSManagedObject]()
+
+        tasks.forEach({ task in
+            let status = task.value(forKey: EnumCoreDataTaskAttributes.status.rawValue) as! String
+
+            if status == taskStatus.rawValue {
+                tasksFiltration.append(task)
+            }
+        })
+
+        return tasksFiltration
+    }
+
+    private func countElementsWithFilter(tasks: [NSManagedObject]) -> Int {
+        var count = 0
+
+        tasks.forEach({ task in
+            let taskStatusElement = task.value(forKey: EnumCoreDataTaskAttributes.status.rawValue) as! String
+            if taskStatusElement == taskStatus.rawValue {
+                count += 1
+            }
+        })
+
+        return count
+    }
 
 }

@@ -4,6 +4,7 @@
 //
 
 enum EnumCoreDataTaskAttributes: String {
+    case id = "id"
     case name = "name"
     case content = "content"
     case status = "status"

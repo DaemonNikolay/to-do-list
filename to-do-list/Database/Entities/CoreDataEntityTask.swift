@@ -89,6 +89,9 @@ class CoreDataEntityTask: EntityTask {
         let newTask = NSManagedObject(entity: entity!, insertInto: _context)
 
         let taskAttributes = EnumCoreDataTaskAttributes.self
+        let coreDataUniqueId = CoreDataEntityUniqueId.shared
+
+        newTask.setValue(coreDataUniqueId.getId(), forKey: taskAttributes.id.rawValue)
 
         newTask.setValue(name, forKey: taskAttributes.name.rawValue)
         newTask.setValue(content, forKey: taskAttributes.content.rawValue)
@@ -109,10 +112,24 @@ class CoreDataEntityTask: EntityTask {
         }
     }
 
-    func remove(index: Int) -> Bool {
+    func remove(id: Int) -> Bool {
         do {
-            let fetchResult = try _context.fetch(_requestCoreData)
-            _context.delete(fetchResult[index] as! NSManagedObject)
+            let fetchResult = try _context.fetch(_requestCoreData) as! [NSManagedObject]
+            var taskManagedObject: NSManagedObject? = nil
+
+            fetchResult.forEach({ element in
+                let taskId = element.value(forKey: EnumCoreDataTaskAttributes.id.rawValue) as! Int
+                if taskId == id {
+                    taskManagedObject = element
+                    return
+                }
+            })
+
+            if taskManagedObject == nil {
+                return false
+            }
+
+            _context.delete(taskManagedObject!)
             try _context.save()
 
             return true
