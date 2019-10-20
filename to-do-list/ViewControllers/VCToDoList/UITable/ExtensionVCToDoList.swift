@@ -87,6 +87,16 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.labelCompletionOnSchedule.text = "-"
             }
+
+            if (actualCompletionTime != nil && scheduledCompletionTime != nil && actualCompletionTime! > scheduledCompletionTime!) {
+                let purpleTrans = UIColor.withAlphaComponent(.purple)(0.1)
+
+                cell.backgroundColor = purpleTrans
+
+                print("jpodfjgdf32543")
+            } else {
+                cell.backgroundColor = .clear
+            }
         } catch {
             fatalError()
         }
