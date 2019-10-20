@@ -33,7 +33,7 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
     // MARK: Button actions
 
     @IBAction func buttonSave_click(_ sender: Any) {
-        let dateFormatter = DateFormat.dateFormatter()
+        let dateFormatter = FormattedTime.dateFormatter()
 
         let name = textFieldNameTask.text!
         let content = textViewContentTask.text!
@@ -78,7 +78,7 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
     @objc func datePickerButtonDone_click() {
         labelErrorDate.isHidden = true
 
-        let formatter = DateFormat.dateFormatter()
+        let formatter = FormattedTime.dateFormatter()
         textFieldDatePicker.text = formatter.string(from: datePicker.date)
 
         self.view.endEditing(true)
@@ -135,7 +135,7 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
 
         let scheduledCompletionTime = coreDataTask.getScheduledCompletionTime(taskId: id)
         if scheduledCompletionTime != nil {
-            let formatter = DateFormat.dateFormatter()
+            let formatter = FormattedTime.dateFormatter()
             textFieldDatePicker.text = formatter.string(from: scheduledCompletionTime!)
         }
 

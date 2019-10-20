@@ -6,7 +6,7 @@
 import Foundation
 
 
-class DateFormat {
+class FormattedTime {
 
     // MARK: -
     // MARK: Properties
@@ -19,8 +19,12 @@ class DateFormat {
 
     static func dateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = DateFormat.dateFormat
+        formatter.dateFormat = FormattedTime.dateFormat
 
         return formatter
+    }
+
+    static func currentDateAndTime() -> Date {
+        return Date()
     }
 }

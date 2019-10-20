@@ -29,13 +29,33 @@ class ViewControllerToDoList: UIViewController {
     // MARK: -
     // MARK: Button actions
 
-    @IBAction func buttonCompleteTask_click(_ sender: Any) {
-        NSLog("Click")
+    @IBAction func buttonCompleteTask_click(_ sender: Checkbox) {
+        let coreDataTask = CoreDataEntityTask()
+
+        let isEditIsComplete = coreDataTask.edit(
+                id: sender.tag,
+                key: EnumCoreDataTaskAttributes.isComplete,
+                value: !sender.isChecked)
+
+        var isEditActualCompletionTime = false
+        if (!sender.isChecked) {
+            isEditActualCompletionTime = coreDataTask.edit(
+                    id: sender.tag,
+                    key: EnumCoreDataTaskAttributes.actualCompletionTime,
+                    value: FormattedTime.currentDateAndTime())
+        } else {
+            isEditActualCompletionTime = coreDataTask.edit(
+                    id: sender.tag,
+                    key: EnumCoreDataTaskAttributes.actualCompletionTime,
+                    value: nil)
+        }
+
+        if (isEditActualCompletionTime && isEditIsComplete) {
+            self.tableViewTaskList.reloadData()
+        }
     }
 
     @IBAction func buttonEditTask_click(_ sender: UIButton) {
-        print("43434343 \(sender.tag)")
-
         taskId = sender.tag
 
         self.performSegue(withIdentifier: "detailsTask", sender: self)
@@ -124,8 +144,6 @@ class ViewControllerToDoList: UIViewController {
         if segue.destination is ViewControllerDetailsTask {
             let vc = segue.destination as? ViewControllerDetailsTask
             vc?.taskId = self.taskId
-
-            print("09480234023 \(self.taskId)")
         }
     }
 }

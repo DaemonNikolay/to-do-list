@@ -68,12 +68,14 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
             cell.buttonTaskRemove.tag = task.value(forKey: "id") as! Int
 
             let formatter = DateFormatter()
-            formatter.dateFormat = DateFormat.dateFormat
+            formatter.dateFormat = FormattedTime.dateFormat
 
             let actualCompletionTime = task.value(forKey: "actualCompletionTime") as! Date?
             let scheduledCompletionTime = task.value(forKey: "scheduledCompletionTime") as! Date?
 
             if (actualCompletionTime != nil) {
+                cell.labelActualCompletionTime.isHidden = false
+                cell.labelCompletedActualCompletionTime.isHidden = false
                 cell.labelActualCompletionTime.text = formatter.string(from: actualCompletionTime!)
             } else {
                 cell.labelActualCompletionTime.isHidden = true

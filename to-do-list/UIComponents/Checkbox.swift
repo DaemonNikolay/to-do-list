@@ -30,13 +30,6 @@ class Checkbox: UIButton {
             return
         }
 
-        UIView.animate(withDuration: 0.2, animations: {
-            sender.alpha = 0.5
-        }, completion: { (finished) in
-            self.isChecked = !self.isChecked
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.alpha = 1.0
-            }, completion: nil)
-        })
+        self.isChecked = !self.isChecked
     }
 }
