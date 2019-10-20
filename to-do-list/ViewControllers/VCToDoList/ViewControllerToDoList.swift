@@ -24,7 +24,7 @@ class ViewControllerToDoList: UIViewController {
 
     var indexElementSelected: Int = 0
     var taskStatus: EnumStatusTask = EnumStatusTask.unknown
-
+    var taskId: Int?
 
     // MARK: -
     // MARK: Button actions
@@ -35,6 +35,10 @@ class ViewControllerToDoList: UIViewController {
 
     @IBAction func buttonEditTask_click(_ sender: UIButton) {
         print("43434343 \(sender.tag)")
+
+        taskId = sender.tag
+
+        self.performSegue(withIdentifier: "detailsTask", sender: self)
     }
 
     @IBAction func buttonRemoveTask_click(_ sender: UIButton) {
@@ -111,6 +115,7 @@ class ViewControllerToDoList: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.tableViewTaskList.reloadData()
+        self.taskId = nil
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -118,7 +123,9 @@ class ViewControllerToDoList: UIViewController {
 
         if segue.destination is ViewControllerDetailsTask {
             let vc = segue.destination as? ViewControllerDetailsTask
-//            vc?.username = "Arthur Dent"
+            vc?.taskId = self.taskId
+
+            print("09480234023 \(self.taskId)")
         }
     }
 }

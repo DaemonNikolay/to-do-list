@@ -7,12 +7,12 @@ import Foundation
 
 
 protocol EntityTask {
-    func getName(index: Int) -> String?
-    func getContent(index: Int) -> String?
-    func getStatus(index: Int) -> String?
-    func getIsComplete(index: Int) -> Bool
-    func getActualCompletionTime(index: Int) -> Date?
-    func getScheduledCompletionTime(index: Int) -> Date?
+    func getName(taskId: Int) -> String?
+    func getContent(taskId: Int) -> String?
+    func getStatus(taskId: Int) -> String?
+    func getIsComplete(taskId: Int) -> Bool
+    func getActualCompletionTime(taskId: Int) -> Date?
+    func getScheduledCompletionTime(taskId: Int) -> Date?
 
 
 }

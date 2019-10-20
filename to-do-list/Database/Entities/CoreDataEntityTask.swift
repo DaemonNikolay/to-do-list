@@ -38,40 +38,40 @@ class CoreDataEntityTask: EntityTask {
         _context = _appDelegate.persistentContainer.viewContext
     }
 
-    func getName(index: Int) -> String? {
-        let name = _getElementCoreData(index: index, taskAttribute: EnumCoreDataTaskAttributes.content)
+    func getName(taskId: Int) -> String? {
+        let result = _getTask(taskId: taskId, attribute: EnumCoreDataTaskAttributes.name) as! String?
 
-        return name as? String
+        return result
     }
 
-    func getContent(index: Int) -> String? {
-        let content = _getElementCoreData(index: index, taskAttribute: EnumCoreDataTaskAttributes.content)
+    func getContent(taskId: Int) -> String? {
+        let result = _getTask(taskId: taskId, attribute: EnumCoreDataTaskAttributes.content) as! String?
 
-        return content as? String
+        return result
     }
 
-    func getStatus(index: Int) -> String? {
-        let status = _getElementCoreData(index: index, taskAttribute: EnumCoreDataTaskAttributes.status)
+    func getStatus(taskId: Int) -> String? {
+        let result = _getTask(taskId: taskId, attribute: EnumCoreDataTaskAttributes.status) as! String?
 
-        return status as? String
+        return result
     }
 
-    func getIsComplete(index: Int) -> Bool {
-        let isComplete = _getElementCoreData(index: index, taskAttribute: EnumCoreDataTaskAttributes.isComplete)
+    func getIsComplete(taskId: Int) -> Bool {
+        let result = _getTask(taskId: taskId, attribute: EnumCoreDataTaskAttributes.isComplete) as! Bool
 
-        return isComplete as! Bool
+        return result
     }
 
-    func getActualCompletionTime(index: Int) -> Date? {
-        let actualCompletionTime = _getElementCoreData(index: index, taskAttribute: EnumCoreDataTaskAttributes.actualCompletionTime)
+    func getActualCompletionTime(taskId: Int) -> Date? {
+        let result = _getTask(taskId: taskId, attribute: EnumCoreDataTaskAttributes.actualCompletionTime) as! Date?
 
-        return actualCompletionTime as? Date
+        return result
     }
 
-    func getScheduledCompletionTime(index: Int) -> Date? {
-        let scheduledCompletionTime = _getElementCoreData(index: index, taskAttribute: EnumCoreDataTaskAttributes.scheduledCompletionTime)
+    func getScheduledCompletionTime(taskId: Int) -> Date? {
+        let result = _getTask(taskId: taskId, attribute: EnumCoreDataTaskAttributes.scheduledCompletionTime) as! Date?
 
-        return scheduledCompletionTime as? Date
+        return result
     }
 
     func save(name: String,
@@ -115,21 +115,27 @@ class CoreDataEntityTask: EntityTask {
     func remove(id: Int) -> Bool {
         do {
             let fetchResult = try _context.fetch(_requestCoreData) as! [NSManagedObject]
-            var taskManagedObject: NSManagedObject? = nil
-
-            fetchResult.forEach({ element in
-                let taskId = element.value(forKey: EnumCoreDataTaskAttributes.id.rawValue) as! Int
-                if taskId == id {
-                    taskManagedObject = element
-                    return
-                }
-            })
+            let taskManagedObject: NSManagedObject? = self._getTask(tasksFetchResult: fetchResult, id: id)
 
             if taskManagedObject == nil {
                 return false
             }
 
             _context.delete(taskManagedObject!)
+            try _context.save()
+
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    func edit(id: Int, key: EnumCoreDataTaskAttributes, value: Any?) -> Bool {
+        do {
+            let fetchResult = try _context.fetch(_requestCoreData) as! [NSManagedObject]
+            let taskManagedObject: NSManagedObject? = self._getTask(tasksFetchResult: fetchResult, id: id)
+
+            taskManagedObject?.setValue(value, forKey: key.rawValue)
             try _context.save()
 
             return true
@@ -146,14 +152,29 @@ class CoreDataEntityTask: EntityTask {
         return !(name.isEmpty && name.isEmpty)
     }
 
-    private func _getElementCoreData(index: Int, taskAttribute: EnumCoreDataTaskAttributes) -> Any? {
+    private func _getTask(taskId: Int, attribute: EnumCoreDataTaskAttributes) -> Any? {
         do {
-            let fetchResult = try _context.fetch(_requestCoreData)
-            let task = fetchResult[index] as! NSManagedObject
+            let fetchResult = try _context.fetch(_requestCoreData) as! [NSManagedObject]
+            let taskManagedObject: NSManagedObject? = self._getTask(tasksFetchResult: fetchResult, id: taskId)
+            let element = taskManagedObject?.value(forKey: attribute.rawValue)
 
-            return task.value(forKey: taskAttribute.rawValue) as Any
+            return element
         } catch {
             return nil
         }
+    }
+
+    private func _getTask(tasksFetchResult: [NSManagedObject], id: Int) -> NSManagedObject? {
+        var taskManagedObject: NSManagedObject? = nil
+
+        tasksFetchResult.forEach({ element in
+            let taskId = element.value(forKey: EnumCoreDataTaskAttributes.id.rawValue) as! Int
+            if taskId == id {
+                taskManagedObject = element
+                return
+            }
+        })
+
+        return taskManagedObject
     }
 }

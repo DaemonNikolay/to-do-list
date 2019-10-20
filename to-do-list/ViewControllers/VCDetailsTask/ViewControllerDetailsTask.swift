@@ -11,6 +11,8 @@ import UIKit
 
 class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
 
+    var taskId: Int?
+
     // MARK: -
     // MARK: Constants
 
@@ -33,25 +35,40 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
     @IBAction func buttonSave_click(_ sender: Any) {
         let dateFormatter = DateFormat.dateFormatter()
 
-        if dateFormatter.date(from: textFieldDatePicker.text!) == nil {
-            labelErrorDate.isHidden = false
-
-            return
-        }
-
         let name = textFieldNameTask.text!
         let content = textViewContentTask.text!
         let status = _getSegment(selectedSegmentIndex: segmentedControlTaskStatus.selectedSegmentIndex)
         let scheduledCompletionTime = dateFormatter.date(from: textFieldDatePicker.text!)
 
         let coreDataTask = CoreDataEntityTask()
-        let isSave = coreDataTask.save(
-                name: name,
-                content: content,
-                status: status,
-                isComplete: false,
-                actualCompletionTime: nil,
-                scheduledCompletionTime: scheduledCompletionTime)
+        var isSave = false
+
+        if taskId == nil {
+            isSave = coreDataTask.save(
+                    name: name,
+                    content: content,
+                    status: status,
+                    isComplete: false,
+                    actualCompletionTime: nil,
+                    scheduledCompletionTime: scheduledCompletionTime)
+        } else {
+            let id = taskId!
+            let isChangeName = coreDataTask.edit(id: id, key: EnumCoreDataTaskAttributes.name, value: name)
+            let isChangeContent = coreDataTask.edit(id: id, key: EnumCoreDataTaskAttributes.content, value: content)
+
+            let isChangeStatus = coreDataTask.edit(
+                    id: id,
+                    key: EnumCoreDataTaskAttributes.status,
+                    value: status.rawValue)
+
+            let isChangeScheduledCompletionTime = coreDataTask.edit(
+                    id: id,
+                    key: EnumCoreDataTaskAttributes.scheduledCompletionTime,
+                    value: scheduledCompletionTime)
+
+            isSave = isChangeName && isChangeContent && isChangeStatus && isChangeScheduledCompletionTime
+        }
+
 
         if (isSave) {
             self.navigationController?.popViewController(animated: true)
@@ -62,7 +79,6 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
         labelErrorDate.isHidden = true
 
         let formatter = DateFormat.dateFormatter()
-
         textFieldDatePicker.text = formatter.string(from: datePicker.date)
 
         self.view.endEditing(true)
@@ -79,11 +95,11 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Screen"
-
+        _initTitle()
         _stylizationTextViewContentTask()
         _showDatePicker()
         _tapGestureRecognizerDismissKeyboard()
+        _initFields()
     }
 
 
@@ -102,6 +118,47 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
 
     // MARK: -
     // MARK: Services
+
+    private func _initFields() {
+        if (taskId == nil) {
+            return
+        }
+
+        let coreDataTask = CoreDataEntityTask()
+
+        let id = taskId!
+
+        print("jgpdfj \(id)")
+
+        textFieldNameTask.text = coreDataTask.getName(taskId: id)
+        textViewContentTask.text = coreDataTask.getContent(taskId: id)
+
+        let scheduledCompletionTime = coreDataTask.getScheduledCompletionTime(taskId: id)
+        if scheduledCompletionTime != nil {
+            let formatter = DateFormat.dateFormatter()
+            textFieldDatePicker.text = formatter.string(from: scheduledCompletionTime!)
+        }
+
+        let statusTask = coreDataTask.getStatus(taskId: id)
+
+        switch statusTask! {
+
+        case EnumStatusTask.normal.rawValue: segmentedControlTaskStatus.selectedSegmentIndex = 0
+        case EnumStatusTask.significant.rawValue: segmentedControlTaskStatus.selectedSegmentIndex = 1
+        case EnumStatusTask.verySignificant.rawValue: segmentedControlTaskStatus.selectedSegmentIndex = 2
+
+        default: segmentedControlTaskStatus.selectedSegmentIndex = 0
+        }
+    }
+
+    private func _initTitle() {
+        if taskId != nil {
+            self.title = "Task change"
+            return
+        }
+
+        self.title = "New task"
+    }
 
     private func _stylizationTextViewContentTask() {
         textViewContentTask.layer.borderWidth = 1
