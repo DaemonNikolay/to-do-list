@@ -51,14 +51,18 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
             cell.buttonCompleteTask.isChecked = task.value(forKey: "isComplete") as! Bool
             cell.labelStatusTask.text = (task.value(forKey: "status") as! String)
             cell.labelNameTask.text = (task.value(forKey: "name") as! String)
+            cell.labelPreviewTaskContent.text = (task.value(forKey: "content") as! String)
 
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
 
-            let actualCompletionTime = task.value(forKey: "actualCompletionTime") as! Date
+            let actualCompletionTime = task.value(forKey: "actualCompletionTime") as! Date?
             let scheduledCompletionTime = task.value(forKey: "scheduledCompletionTime") as! Date?
 
-            cell.labelCompletionOnSchedule.text = formatter.string(from: actualCompletionTime)
+            if (actualCompletionTime != nil) {
+                cell.labelCompletionOnSchedule.text = formatter.string(from: actualCompletionTime!)
+            }
+
 
             print("kpofdg \(scheduledCompletionTime == nil)")
 

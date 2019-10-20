@@ -60,6 +60,7 @@ class ViewControllerToDoList: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        self.tableViewTaskList.reloadData()
         print("pfdjpgjdsfpger")
     }
 

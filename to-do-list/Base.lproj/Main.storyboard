@@ -125,9 +125,9 @@
                     <connections>
                         <outlet property="labelErrorDate" destination="N8u-1J-eR9" id="EE3-iv-wUO"/>
                         <outlet property="segmentedControlTaskStatus" destination="X7r-nF-5go" id="4Cz-t1-ZrQ"/>
+                        <outlet property="textFieldDatePicker" destination="3NF-H5-Xpx" id="1RZ-kN-b1H"/>
                         <outlet property="textFieldNameTask" destination="vc4-wJ-Aoq" id="tFT-Bh-z7K"/>
                         <outlet property="textViewContentTask" destination="6Cm-h7-L5g" id="SgR-Q1-dZH"/>
-                        <outlet property="txtDatePicker" destination="3NF-H5-Xpx" id="1RZ-kN-b1H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVL-FC-I63" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

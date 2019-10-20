@@ -20,7 +20,7 @@ class ViewControllerDetailsTask: UIViewController {
     @IBOutlet weak var textFieldNameTask: UITextField!
     @IBOutlet weak var textViewContentTask: UITextView!
     @IBOutlet weak var segmentedControlTaskStatus: UISegmentedControl!
-    @IBOutlet weak var txtDatePicker: UITextField!
+    @IBOutlet weak var textFieldDatePicker: UITextField!
     @IBOutlet weak var labelErrorDate: UILabel!
 
 
@@ -51,15 +51,48 @@ class ViewControllerDetailsTask: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy hh:mm"
 
-        if dateFormatter.date(from: txtDatePicker.text!) != nil {
+        if dateFormatter.date(from: textFieldDatePicker.text!) != nil {
             print("date is valid")
             labelErrorDate.isHidden = true
         } else {
             print("date is invalid")
             labelErrorDate.isHidden = false
+
+            return
         }
 
-        print("\(textFieldNameTask.text!) \(textViewContentTask.text!) \(segmentedControlTaskStatus.selectedSegmentIndex) \(txtDatePicker.text!)")
+        let name = textFieldNameTask.text!
+        let content = textViewContentTask.text!
+        let status = getSegment(selectedSegmentIndex: segmentedControlTaskStatus.selectedSegmentIndex)
+        let scheduledCompletionTime = dateFormatter.date(from: textFieldDatePicker.text!)
+
+        let coreDataTask = CoreDataEntityTask()
+        let isSave = coreDataTask.save(
+                name: name,
+                content: content,
+                status: status,
+                isComplete: false,
+                actualCompletionTime: nil,
+                scheduledCompletionTime: scheduledCompletionTime)
+
+        print("fdoigsd \(isSave)")
+        if (isSave) {
+
+            self.navigationController?.popViewController(animated: true)
+
+//            self.dismiss(animated: true)
+        }
+    }
+
+    private func getSegment(selectedSegmentIndex: Int) -> EnumStatusTask {
+        switch selectedSegmentIndex {
+
+        case 0: return EnumStatusTask.normal
+        case 1: return EnumStatusTask.significant
+        case 2: return EnumStatusTask.verySignificant
+
+        default: return EnumStatusTask.unknown
+        }
     }
 
     func showDatePicker() {
@@ -73,8 +106,8 @@ class ViewControllerDetailsTask: UIViewController {
 
         toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
 
-        txtDatePicker.inputAccessoryView = toolbar
-        txtDatePicker.inputView = datePicker
+        textFieldDatePicker.inputAccessoryView = toolbar
+        textFieldDatePicker.inputView = datePicker
     }
 
     @objc func donedatePicker() {
@@ -83,7 +116,7 @@ class ViewControllerDetailsTask: UIViewController {
 
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy hh:mm"
-        txtDatePicker.text = formatter.string(from: datePicker.date)
+        textFieldDatePicker.text = formatter.string(from: datePicker.date)
 
         print("ewr ", formatter.string(from: datePicker.date))
 

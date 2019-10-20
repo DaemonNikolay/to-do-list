@@ -16,6 +16,9 @@
 		7434F35036AC162921E222DE /* ExtensionVCToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */; };
 		7434F5A1D61DEB96B60C3A28 /* ViewControllerToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */; };
 		7434F8ABE9FDE14F8FDFC048 /* ViewControllerDetailsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */; };
+		7434FAE080EFC9117E477FE4 /* EnumCoreDataTaskAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F530F74A5512AE39C5D6 /* EnumCoreDataTaskAttributes.swift */; };
+		7434FAF73786E07753F61475 /* EntityTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F92D8D2F9B0F68B6B936 /* EntityTask.swift */; };
+		7434FC6E09DAC1AB58101D37 /* CoreDataEntityTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434FEB05919BF86B8E75EDA /* CoreDataEntityTask.swift */; };
 		7434FCCF804067B22DA9EFEC /* EnumStatusTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F2ED833759B45C294EBC /* EnumStatusTask.swift */; };
 		7434FCF52F1CAEEC7545883C /* TableViewCellTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F378FAB88E41B854F29F /* TableViewCellTask.swift */; };
 		7434FE8DF122837BD212721C /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434F620B5126AE3FD551F4C /* Checkbox.swift */; };
@@ -33,10 +36,13 @@
 		7380A46E23560E650094D1C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7434F2ED833759B45C294EBC /* EnumStatusTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumStatusTask.swift; sourceTree = "<group>"; };
 		7434F378FAB88E41B854F29F /* TableViewCellTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellTask.swift; sourceTree = "<group>"; };
+		7434F530F74A5512AE39C5D6 /* EnumCoreDataTaskAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumCoreDataTaskAttributes.swift; sourceTree = "<group>"; };
 		7434F620B5126AE3FD551F4C /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		7434F6BBDA83393CCC8A2C48 /* ExtensionVCToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionVCToDoList.swift; sourceTree = "<group>"; };
+		7434F92D8D2F9B0F68B6B936 /* EntityTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityTask.swift; sourceTree = "<group>"; };
 		7434FD78860EE45FFBFBD2EA /* ViewControllerDetailsTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerDetailsTask.swift; sourceTree = "<group>"; };
 		7434FDBDDEFB0E7250D54B99 /* ViewControllerToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerToDoList.swift; sourceTree = "<group>"; };
+		7434FEB05919BF86B8E75EDA /* CoreDataEntityTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityTask.swift; sourceTree = "<group>"; };
 		8E21CEEB7F903E758B07857F /* Pods_to_do_list.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_to_do_list.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D097668C4F0E9A4F46A678E1 /* Pods-to-do-list.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-to-do-list.debug.xcconfig"; path = "Target Support Files/Pods-to-do-list/Pods-to-do-list.debug.xcconfig"; sourceTree = "<group>"; };
 		F0359926C0501E366C4066A2 /* Pods-to-do-list.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-to-do-list.release.xcconfig"; path = "Target Support Files/Pods-to-do-list/Pods-to-do-list.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +139,14 @@
 			path = VCDetailsTask;
 			sourceTree = "<group>";
 		};
+		7434F5D04EF1853CB044D93D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7434F92D8D2F9B0F68B6B936 /* EntityTask.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		7434F7BB431F06D264FDDB54 /* Table */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				7434F2ED833759B45C294EBC /* EnumStatusTask.swift */,
+				7434F530F74A5512AE39C5D6 /* EnumCoreDataTaskAttributes.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -161,6 +176,8 @@
 		7434FCD37E24E3F4303E17C3 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				7434FEB05919BF86B8E75EDA /* CoreDataEntityTask.swift */,
+				7434F5D04EF1853CB044D93D /* Protocols */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -297,6 +314,9 @@
 				7434F35036AC162921E222DE /* ExtensionVCToDoList.swift in Sources */,
 				7434F5A1D61DEB96B60C3A28 /* ViewControllerToDoList.swift in Sources */,
 				7434F8ABE9FDE14F8FDFC048 /* ViewControllerDetailsTask.swift in Sources */,
+				7434FC6E09DAC1AB58101D37 /* CoreDataEntityTask.swift in Sources */,
+				7434FAE080EFC9117E477FE4 /* EnumCoreDataTaskAttributes.swift in Sources */,
+				7434FAF73786E07753F61475 /* EntityTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
