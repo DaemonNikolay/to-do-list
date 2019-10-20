@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7345EB5F235CAEF80085F749 /* ViewControllerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7345EB5D235CAEF70085F749 /* ViewControllerPopup.swift */; };
+		7345EB60235CAEF80085F749 /* ViewControllerPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7345EB5E235CAEF70085F749 /* ViewControllerPopup.xib */; };
 		7380A45E23560E620094D1C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380A45D23560E620094D1C4 /* AppDelegate.swift */; };
 		7380A46023560E620094D1C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380A45F23560E620094D1C4 /* SceneDelegate.swift */; };
 		7380A46523560E620094D1C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380A46323560E620094D1C4 /* Main.storyboard */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7345EB5D235CAEF70085F749 /* ViewControllerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerPopup.swift; sourceTree = "<group>"; };
+		7345EB5E235CAEF70085F749 /* ViewControllerPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewControllerPopup.xib; sourceTree = "<group>"; };
 		7380A45A23560E620094D1C4 /* To do list.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To do list.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7380A45D23560E620094D1C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7380A45F23560E620094D1C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 			children = (
 				7434F555CD448BAF8A06789B /* VCToDoList */,
 				7434F5AA0E29CBD2A4A8821C /* VCDetailsTask */,
+				7345EB5D235CAEF70085F749 /* ViewControllerPopup.swift */,
+				7345EB5E235CAEF70085F749 /* ViewControllerPopup.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -264,6 +270,7 @@
 				7380A46D23560E650094D1C4 /* LaunchScreen.storyboard in Resources */,
 				7380A46A23560E650094D1C4 /* Assets.xcassets in Resources */,
 				7380A46523560E620094D1C4 /* Main.storyboard in Resources */,
+				7345EB60235CAEF80085F749 /* ViewControllerPopup.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +334,7 @@
 				7434F8ABE9FDE14F8FDFC048 /* ViewControllerDetailsTask.swift in Sources */,
 				7434FC6E09DAC1AB58101D37 /* CoreDataEntityTask.swift in Sources */,
 				7434FAE080EFC9117E477FE4 /* EnumCoreDataTaskAttributes.swift in Sources */,
+				7345EB5F235CAEF80085F749 /* ViewControllerPopup.swift in Sources */,
 				7434FAF73786E07753F61475 /* EntityTask.swift in Sources */,
 				7434F12E0F04EB032029E409 /* DateFormat.swift in Sources */,
 			);

@@ -22,9 +22,8 @@ class ViewControllerToDoList: UIViewController {
     // MARK: -
     // MARK: Properties
 
-//    var tasks = [NSManagedObject]()
-
     var indexElementSelected: Int = 0
+    var taskStatus: EnumStatusTask = EnumStatusTask.unknown
 
 
     // MARK: -
@@ -63,7 +62,33 @@ class ViewControllerToDoList: UIViewController {
     }
 
     @IBAction func buttonFilter_click(_ sender: Any) {
-        print("jgfiodjhghjodf")
+        let popup = PopupDialog(title: "Фильтр", message: "По какому статусу фильтровать?")
+
+        if self.traitCollection.userInterfaceStyle == .dark {
+            popup.view.backgroundColor = .systemGray6
+        } else {
+            popup.view.backgroundColor = .white
+        }
+
+        let buttonNormal = DefaultButton(title: EnumStatusTask.normal.rawValue) {
+            self.taskStatus = .normal
+        }
+
+        let buttonSignificant = DefaultButton(title: EnumStatusTask.significant.rawValue) {
+            self.taskStatus = .significant
+        }
+
+        let buttonVerySignificant = DefaultButton(title: EnumStatusTask.verySignificant.rawValue) {
+            self.taskStatus = .verySignificant
+        }
+
+        let buttonWithoutFilter = CancelButton(title: "Без фильтра") {
+            self.taskStatus = .unknown
+        }
+
+        popup.addButtons([buttonNormal, buttonSignificant, buttonVerySignificant, buttonWithoutFilter])
+
+        self.present(popup, animated: true, completion: nil)
     }
 
 
