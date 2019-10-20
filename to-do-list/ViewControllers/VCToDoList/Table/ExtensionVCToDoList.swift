@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import CoreData
 
 
 extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
@@ -20,20 +21,58 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayContent.count
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        var countElements = 0
+
+        do {
+            let result = try context.fetch(request)
+            countElements = (result as! [NSManagedObject]).count
+        } catch {
+            print("Failed")
+        }
+
+        return countElements
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellTask") as! TableViewCellTask
 
-        cell.buttonCompleteTask.isChecked = true
-        cell.labelStatusTask.text = EnumStatusTask.normal.rawValue
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        request.returnsObjectsAsFaults = false
 
-        cell.labelNameTask.text = arrayName[indexPath.item]
-        cell.labelPreviewTaskContent.text = arrayContent[indexPath.item]
+        do {
+            let fetchResult = try context.fetch(request)
+            let task = fetchResult[indexPath.item] as! NSManagedObject
 
-        cell.labelCompletionOnSchedule.text = self._currentDate
-        cell.labelActualCompletionTime.text = self._currentDate
+            cell.buttonCompleteTask.isChecked = task.value(forKey: "isComplete") as! Bool
+            cell.labelStatusTask.text = (task.value(forKey: "status") as! String)
+            cell.labelNameTask.text = (task.value(forKey: "name") as! String)
+
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+
+            let actualCompletionTime = task.value(forKey: "actualCompletionTime") as! Date
+            let scheduledCompletionTime = task.value(forKey: "scheduledCompletionTime") as! Date?
+
+            cell.labelCompletionOnSchedule.text = formatter.string(from: actualCompletionTime)
+
+            print("kpofdg \(scheduledCompletionTime == nil)")
+
+            if (scheduledCompletionTime != nil) {
+                print("jgpfdjgpdfj43345", scheduledCompletionTime as Any)
+                cell.labelCompletionOnSchedule.text = formatter.string(from: scheduledCompletionTime!)
+            } else {
+                NSLog("gfdhgsd")
+                cell.labelCompletionOnSchedule.text = "-"
+            }
+        } catch {
+            print("Failed fetch data")
+        }
+
 
         return cell
     }
