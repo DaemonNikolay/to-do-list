@@ -44,13 +44,13 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
     @IBAction func buttonSave_click(_ sender: Any) {
         _dismissKeyboard()
 
-        let name = textFieldNameTask.text!
+        let name = textFieldNameTask.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         if name.isEmpty {
             self.labelErrorDate.isHidden = false
             return
         }
 
-        let content = textViewContentTask.text!
+        let content = textViewContentTask.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let status = _getSegment(selectedSegmentIndex: segmentedControlTaskStatus.selectedSegmentIndex)
         let scheduledCompletionTime = FormattedTime.dateFormatter().date(from: textFieldDatePicker.text!)
 
@@ -90,6 +90,7 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
 
         _initTitle()
+        _changeBackButton()
         _stylizationTextViewContentTask()
         _showDatePicker()
         _tapGestureRecognizerDismissKeyboard()
@@ -212,11 +213,17 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
 
     private func _initTitle() {
         if taskId != nil {
-            self.title = "Task change"
+            self.title = "Изменение задачи"
             return
         }
 
-        self.title = "New task"
+        self.title = "Новая задача"
+    }
+    
+    private func _changeBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = "Назад"
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
 
     private func _stylizationTextViewContentTask() {

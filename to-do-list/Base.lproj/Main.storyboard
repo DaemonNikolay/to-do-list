@@ -103,7 +103,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date is invalid" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8u-1J-eR9">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Название не корректно" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8u-1J-eR9">
                                         <rect key="frame" x="174" y="34" width="192" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -118,8 +118,8 @@
                         <viewLayoutGuide key="safeArea" id="xNb-NM-ptf"/>
                     </view>
                     <navigationItem key="navigationItem" id="Jhg-No-bmw">
-                        <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" width="70" id="Jdx-Mq-tRC">
+                        <barButtonItem key="backBarButtonItem" title="&quot; &quot;" id="QZW-JD-QzQ"/>
+                        <barButtonItem key="rightBarButtonItem" title="Сохранить" width="70" id="Jdx-Mq-tRC">
                             <connections>
                                 <action selector="buttonSave_click:" destination="5mx-Gg-OJ3" id="LII-r7-jIE"/>
                             </connections>
