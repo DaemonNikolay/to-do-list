@@ -137,7 +137,7 @@
             </objects>
             <point key="canvasLocation" x="1897.1014492753625" y="138.61607142857142"/>
         </scene>
-        <!--View Controller To Do List-->
+        <!--To do list-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewControllerToDoList" customModule="To_do_list" customModuleProvider="target" sceneMemberID="viewController">
@@ -145,50 +145,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8GB-Kf-Hfw" userLabel="App name">
-                                <rect key="frame" x="20" y="88" width="374" height="55"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To do list" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1r-Oh-CI9">
-                                        <rect key="frame" x="8" y="8" width="358" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1m-wK-uZd" userLabel="Tools">
-                                <rect key="frame" x="20" y="161" width="374" height="31"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSB-tA-zXw" userLabel="Add new task">
-                                        <rect key="frame" x="172" y="1" width="30" height="27.5"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="plus.square.fill" catalog="system">
-                                            <color key="titleColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="buttonNewTask_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SoR-s5-oTU"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WK1-ko-MkH">
-                                        <rect key="frame" x="336" y="0.0" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="funnel">
-                                            <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="buttonFilter_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u4U-vZ-Van"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <bool key="isElement" value="YES"/>
-                                </accessibility>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3It-pF-Bbt">
-                                <rect key="frame" x="20" y="213" width="374" height="649"/>
+                                <rect key="frame" x="20" y="109" width="374" height="713"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellTask" rowHeight="155" id="D4N-z0-EIU" customClass="TableViewCellTask" customModule="To_do_list" customModuleProvider="target">
@@ -290,22 +248,25 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3It-pF-Bbt" secondAttribute="bottom" id="5cc-WX-jiR"/>
-                            <constraint firstItem="8GB-Kf-Hfw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7zs-KV-mho"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8GB-Kf-Hfw" secondAttribute="bottom" constant="719" id="DOk-tp-368"/>
-                            <constraint firstItem="C1m-wK-uZd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="DTh-vQ-h8H"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8GB-Kf-Hfw" secondAttribute="trailing" constant="20" id="FII-BW-vAd"/>
-                            <constraint firstItem="8GB-Kf-Hfw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="J5I-BC-tsh"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="C1m-wK-uZd" secondAttribute="trailing" constant="20" id="J8R-V3-aIE"/>
-                            <constraint firstItem="C1m-wK-uZd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="73" id="VrN-pB-T0U"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="C1m-wK-uZd" secondAttribute="bottom" constant="670" id="XqQ-gy-aSH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3It-pF-Bbt" secondAttribute="bottom" constant="40" id="5cc-WX-jiR"/>
                             <constraint firstItem="3It-pF-Bbt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fAB-4p-XSC"/>
-                            <constraint firstItem="3It-pF-Bbt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="125" id="fkn-jw-ckl"/>
+                            <constraint firstItem="3It-pF-Bbt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="21" id="fkn-jw-ckl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3It-pF-Bbt" secondAttribute="trailing" constant="20" id="j8p-Uw-EqN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="kGv-tN-Cv5"/>
+                    <navigationItem key="navigationItem" title="To do list" id="kGv-tN-Cv5">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="square.and.arrow.down" catalog="system" style="plain" id="j2e-N1-adI">
+                            <connections>
+                                <action selector="buttonFilter_click:" destination="BYZ-38-t0r" id="RPZ-yC-mAa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="YRj-fL-wfe">
+                            <connections>
+                                <action selector="buttonNewTask_click:" destination="BYZ-38-t0r" id="zaO-nY-14C"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableViewTaskList" destination="3It-pF-Bbt" id="E4V-7H-0kR"/>
                         <segue destination="5mx-Gg-OJ3" kind="show" identifier="detailsTask" id="GLD-lz-gUp"/>
@@ -336,9 +297,8 @@
     </scenes>
     <resources>
         <image name="checkbox_unchecked" width="128" height="128"/>
-        <image name="funnel" width="128" height="128"/>
         <image name="gear" catalog="system" width="64" height="58"/>
-        <image name="plus.square.fill" catalog="system" width="64" height="56"/>
+        <image name="square.and.arrow.down" catalog="system" width="60" height="64"/>
         <image name="trash.fill" catalog="system" width="60" height="64"/>
     </resources>
 </document>
