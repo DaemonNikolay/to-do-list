@@ -141,6 +141,7 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
 
         } else {
             cell.labelCompletionOnSchedule.text = "-"
+            cell.backgroundColor = .clear
         }
 
         return cell

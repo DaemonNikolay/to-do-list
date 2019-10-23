@@ -185,7 +185,7 @@ class ViewControllerToDoList: UIViewController {
 
     private func _createTimer() {
         if _timer == nil {
-            _timer = Timer.scheduledTimer(timeInterval: 60.0,
+            _timer = Timer.scheduledTimer(timeInterval: 30.0,
                     target: self,
                     selector: #selector(_updateTableViewTaskForTimer),
                     userInfo: nil,
