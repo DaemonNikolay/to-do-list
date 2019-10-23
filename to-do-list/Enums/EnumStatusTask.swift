@@ -8,5 +8,10 @@ enum EnumStatusTask: String {
     case significant = "Важная"
     case verySignificant = "Очень важная"
 
+    case pluralNormal = "Обычные"
+    case pluralSignificant = "Важные"
+    case pluralVerySignificant = "Очень важные"
+
+
     case unknown = "UNKNOWN"
 }

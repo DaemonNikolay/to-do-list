@@ -20,6 +20,8 @@ class FormattedTime {
     static func dateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = FormattedTime.dateFormat
+        formatter.timeStyle = .short
+        formatter.dateStyle = .short
 
         return formatter
     }

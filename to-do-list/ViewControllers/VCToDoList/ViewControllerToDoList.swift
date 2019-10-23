@@ -13,6 +13,12 @@ import PopupDialog
 
 class ViewControllerToDoList: UIViewController {
 
+    // MARK: -
+    // MARK: Constants
+
+    let titleViewName = "To do list"
+
+
     // MARK: --
     // MARK: IBOutlet
 
@@ -89,12 +95,7 @@ class ViewControllerToDoList: UIViewController {
 
     @IBAction func buttonFilter_click(_ sender: Any) {
         let popup = PopupDialog(title: "Фильтр", message: "По какому статусу фильтровать?")
-
-        if self.traitCollection.userInterfaceStyle == .dark {
-            popup.view.backgroundColor = .systemGray6
-        } else {
-            popup.view.backgroundColor = .white
-        }
+        popup.backgroundColorMode(userInterfaceStyle: self.traitCollection.userInterfaceStyle)
 
         let buttonNormal = DefaultButton(title: EnumStatusTask.normal.rawValue) {
             self._changeTaskStatus(status: .normal)
@@ -112,7 +113,10 @@ class ViewControllerToDoList: UIViewController {
             self._changeTaskStatus(status: .unknown)
         }
 
-        popup.addButtons([buttonNormal, buttonSignificant, buttonVerySignificant, buttonWithoutFilter])
+        popup.addButtons([buttonNormal,
+                          buttonSignificant,
+                          buttonVerySignificant,
+                          buttonWithoutFilter])
 
         self.present(popup, animated: true, completion: nil)
     }
@@ -151,8 +155,32 @@ class ViewControllerToDoList: UIViewController {
     private func _changeTaskStatus(status: EnumStatusTask) {
         if self.taskStatus != status {
             self.taskStatus = status
+            _switchTitleView(status: status)
+
             self.tableViewTaskList.reloadData()
         }
+    }
+
+    private func _switchTitleView(status: EnumStatusTask) {
+        switch status {
+
+        case EnumStatusTask.normal: _changeTitleViewName(newName: EnumStatusTask.pluralNormal.rawValue)
+        case EnumStatusTask.significant: _changeTitleViewName(newName: EnumStatusTask.pluralSignificant.rawValue)
+        case EnumStatusTask.verySignificant: _changeTitleViewName(newName: EnumStatusTask.pluralVerySignificant.rawValue)
+
+        case EnumStatusTask.unknown: _changeTitleViewName(newName: titleViewName)
+
+        default: _changeTitleViewName(newName: titleViewName)
+        }
+    }
+
+    private func _changeTitleViewName(newName: String) {
+        if newName == titleViewName {
+            self.navigationItem.title = newName
+            return
+        }
+
+        self.navigationItem.title = "\(titleViewName): \(newName.localizedLowercase)"
     }
 
     private func _createTimer() {
@@ -168,7 +196,6 @@ class ViewControllerToDoList: UIViewController {
     @objc private func _updateTableViewTaskForTimer() {
         self.tableViewTaskList.reloadData()
     }
-
 
 
     // MARK: --

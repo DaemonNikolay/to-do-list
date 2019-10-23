@@ -113,39 +113,34 @@ extension ViewControllerToDoList: UITableViewDelegate, UITableViewDataSource {
     }
 
     private func _fillCellOfTimes(cell: TableViewCellTask, task: NSManagedObject) -> TableViewCellTask {
-        let formatter = DateFormatter()
-        formatter.dateFormat = FormattedTime.dateFormat
+        let formatter = FormattedTime.dateFormatter()
 
-        let actualCompletionTime = task.value(forKey: "actualCompletionTime") as! Date?
-        let scheduledCompletionTime = task.value(forKey: "scheduledCompletionTime") as! Date?
-
-        if (actualCompletionTime != nil) {
+        let actualCompletionTime = task.value(forKey: EnumCoreDataTaskAttributes.actualCompletionTime.rawValue) as! Date?
+        if let actualCompletionTime = actualCompletionTime {
             cell.labelActualCompletionTime.isHidden = false
             cell.labelCompletedActualCompletionTime.isHidden = false
-            cell.labelActualCompletionTime.text = formatter.string(from: actualCompletionTime!)
+            cell.labelActualCompletionTime.text = formatter.string(from: actualCompletionTime)
         } else {
             cell.labelActualCompletionTime.isHidden = true
             cell.labelCompletedActualCompletionTime.isHidden = true
         }
 
-        if (scheduledCompletionTime != nil) {
-            cell.labelCompletionOnSchedule.text = formatter.string(from: scheduledCompletionTime!)
-        } else {
-            cell.labelCompletionOnSchedule.text = "-"
-        }
+        let scheduledCompletionTime = task.value(forKey: EnumCoreDataTaskAttributes.scheduledCompletionTime.rawValue) as! Date?
+        if let scheduledCompletionTime = scheduledCompletionTime {
+            cell.labelCompletionOnSchedule.text = formatter.string(from: scheduledCompletionTime)
 
-        if scheduledCompletionTime != nil && scheduledCompletionTime! < FormattedTime.currentDateAndTime() {
-            let backgroundMagentaColor = UIColor.withAlphaComponent(.magenta)(0.3)
+            let currentTime = FormattedTime.currentDateAndTime()
 
-            if actualCompletionTime == nil {
-                cell.backgroundColor = backgroundMagentaColor
-            } else if actualCompletionTime! > scheduledCompletionTime! {
-                cell.backgroundColor = backgroundMagentaColor
+            if scheduledCompletionTime < currentTime {
+                if actualCompletionTime == nil || actualCompletionTime! > scheduledCompletionTime {
+                    cell.backgroundColor = UIColor.withAlphaComponent(.systemPink)(0.2)
+                }
             } else {
                 cell.backgroundColor = .clear
             }
+
         } else {
-            cell.backgroundColor = .clear
+            cell.labelCompletionOnSchedule.text = "-"
         }
 
         return cell

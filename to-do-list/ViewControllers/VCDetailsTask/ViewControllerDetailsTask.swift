@@ -28,10 +28,13 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
     @IBOutlet weak var segmentedControlTaskStatus: UISegmentedControl!
     @IBOutlet weak var textFieldDatePicker: UITextField!
     @IBOutlet weak var labelErrorDate: UILabel!
-
-
+    
     // MARK: --
     // MARK: Button actions
+
+    @IBAction func segmentedControlTaskStatus_click(_ sender: UISegmentedControl) {
+        _dismissKeyboard()
+    }
 
     @IBAction func textFieldName_change(_ sender: UITextField) {
         if _isValidContentTextFieldName() {
@@ -95,9 +98,7 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
         _showDatePicker()
         _tapGestureRecognizerDismissKeyboard()
         _initFields()
-
-
-        self.navigationController?.navigationItem.backBarButtonItem?.title = "Назад"
+        _changeBackButton()
     }
 
 
@@ -185,6 +186,10 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
     // MARK: --
     // MARK: Services
 
+    private func _changeBackButtonTitle() {
+        self.navigationController?.navigationItem.backBarButtonItem?.title = "Назад"
+    }
+
     private func _initFields() {
         if (taskId == nil) {
             return
@@ -222,7 +227,7 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
 
         self.title = "Новая задача"
     }
-    
+
     private func _changeBackButton() {
         let backButton = UIBarButtonItem()
         backButton.title = "Назад"
