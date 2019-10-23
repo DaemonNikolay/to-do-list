@@ -95,6 +95,9 @@ class ViewControllerDetailsTask: UIViewController, UITextViewDelegate {
         _showDatePicker()
         _tapGestureRecognizerDismissKeyboard()
         _initFields()
+
+
+        self.navigationController?.navigationItem.backBarButtonItem?.title = "Назад"
     }
 
 
